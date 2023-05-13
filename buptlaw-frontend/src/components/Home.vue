@@ -73,7 +73,7 @@ const contentList = ref([
         <div style="width: 100%; border-radius: 16px; overflow: hidden">
           <el-input v-model="searchContent" placeholder="请输入搜索内容" style="height: 64px;">
             <template #append>
-              <el-button :icon="Search"/>
+              <el-button :icon="Search" @click="handleClick" />
             </template>
           </el-input>
         </div>
@@ -91,8 +91,17 @@ const contentList = ref([
 </template>
 
 <script>
+import request  from "../utils/request";
 export default {
-  name: "Home"
+  name: "Home",
+  methods:{
+    handleClick(){
+      console.log('test')
+      request.get('/test/test1').then(res=>{
+        console.log(res.data)
+      })
+    }
+  }
 }
 </script>
 

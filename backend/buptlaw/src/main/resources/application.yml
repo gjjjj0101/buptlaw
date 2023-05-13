@@ -1,0 +1,14 @@
+spring:
+  datasource:
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+#    url: jdbc:mysql://localhost:3306/buptlaw?useUnicode=true&characterEncoding=utf8&serverTimezone=GMT%2B8&useSSL=false
+#    username: root
+#    password: root
+#  jpa:
+#    hibernate:
+#      ddl-auto: update #自动更新表结构
+#      dialect: MySQL5InnoDBDialect
+#    show-sql: true # 打印出sql语句
+
+server:
+  port: 9090
