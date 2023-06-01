@@ -4,7 +4,7 @@ import Home from "./components/Home.vue";
 </script>
 
 <template>
-  <Home/>
+  <router-view/>
 </template>
 
 <style>
@@ -14,6 +14,5 @@ import Home from "./components/Home.vue";
 }
 
 :root {
-  font-family: "PingFang SC", "Microsoft Yahei", "Helvetica Neue", Helvetica, "Segoe UI", Arial, sans-serif;
 }
 </style>

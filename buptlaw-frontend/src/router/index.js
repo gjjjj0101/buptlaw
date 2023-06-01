@@ -1,22 +1,27 @@
-import { createRouter, createWebHashHistory, createWebHistory } from 'vue-router'
+import { createRouter, createWebHistory } from 'vue-router'
 
-import Home from '../components/Home.vue'
-import Test from '../components/Test.vue'
+
+const routes = [
+    {
+        path: '/',
+        redirect: '/home'
+    },
+    {
+        path: '/home',
+        name: 'Home',
+        component: () => import('../components/Home.vue')
+    },
+    {
+        path:'/law',
+        name:'Law',
+        component: () => import('../components/Law.vue')
+    }
+]
+
+
+const ip = ""
 const router = createRouter({
-    history: createWebHistory(), // hash 模式  ||   普通模式
-    routes: [
-        {
-            path: '/',
-            name: 'home',
-            component: Home
-        },
-        // 路由怎么对应不上？   
-        {
-            path: '/test',
-            name: 'test',
-            component: Test
-        },
-    ]
+    history: createWebHistory(ip),
+    routes
 })
-
 export default router

@@ -45,3 +45,5 @@ tsconfig.tsbuildinfo
 dist
 *.local
 db_data
+
+venv

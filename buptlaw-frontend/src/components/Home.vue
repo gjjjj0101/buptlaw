@@ -1,6 +1,7 @@
 <script setup>
 import {ref, watch} from "vue";
 import {Search} from '@element-plus/icons-vue';
+import router from "../router/index.js";
 
 const listItem = [
   {
@@ -24,10 +25,8 @@ const listItem = [
     isSelect: false,
   },
 ]
-
 const textRef = ref('法律法规')
 const searchContent = ref('')
-
 const contentList = ref([
   {
     title: '中共中央办公厅、国务院',
@@ -42,6 +41,10 @@ const contentList = ref([
     labelList: ['现行有效 ', '2023.04.20 公布', '2023.04.20 施行']
   },
 ])
+
+const jumpInto = () =>{
+  router.push({path: '/law'})
+}
 </script>
 
 <template>
@@ -51,7 +54,7 @@ const contentList = ref([
         <el-row>
           <el-col :span="4">
             <img src="../assets/vue.svg">
-            12313212313
+            北邮法宝
           </el-col>
           <el-col :span="16">
             <div v-for="i in listItem" :class="['item', i.isSelect ? 'item-on-select' : '']">
@@ -73,7 +76,7 @@ const contentList = ref([
         <div style="width: 100%; border-radius: 16px; overflow: hidden">
           <el-input v-model="searchContent" placeholder="请输入搜索内容" style="height: 64px;">
             <template #append>
-              <el-button :icon="Search" @click="handleClick" />
+              <el-button :icon="Search" @click="jumpInto"/>
             </template>
           </el-input>
         </div>
@@ -91,23 +94,13 @@ const contentList = ref([
 </template>
 
 <script>
-import request  from "../utils/request";
 export default {
-  name: "Home",
-  methods:{
-    handleClick(){
-      console.log('test')
-      request.get('/test/test1').then(res=>{
-        console.log(res.data)
-      })
-    }
-  }
+
 }
 </script>
 
 <style scoped>
 .item {
-  width: 64px;
   display: inline-block;
   height: 48px;
   line-height: 48px;
