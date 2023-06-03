@@ -4,3 +4,12 @@ server:
 spring:
     application:
       name: law-regulations
+    datasource:
+      url: jdbc:mysql://${MYSQL_URL:localhost}:${MYSQL_PORT:3306}/${MYSQL_DB:bupt_law}?useUnicode=true&characterEncoding=utf8&serverTimezone=GMT%2B8&useSSL=false
+      username: ${MYSQL_USERNAME:root}
+      password: ${MYSQL_PASSWORD:root}
+    jpa:
+      hibernate:
+        ddl-auto: update
+      show-sql: true
+      open-in-view: true
