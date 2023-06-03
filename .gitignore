@@ -47,3 +47,4 @@ db_data
 
 venv
 assets
+.env 
