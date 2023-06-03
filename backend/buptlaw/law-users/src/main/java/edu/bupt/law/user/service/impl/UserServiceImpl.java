@@ -1,9 +1,9 @@
-package edu.bupt.law.security.service.impl;
+package edu.bupt.law.user.service.impl;
 
-import edu.bupt.law.security.domain.User;
 import edu.bupt.law.security.exception.UserBadRequestException;
-import edu.bupt.law.security.repository.UserRepository;
-import edu.bupt.law.security.service.UserService;
+import edu.bupt.law.user.model.User;
+import edu.bupt.law.user.repository.UserRepository;
+import edu.bupt.law.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;

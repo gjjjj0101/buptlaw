@@ -1,27 +1,24 @@
-package edu.bupt.law.security.controller;
+package edu.bupt.law.user.controller;
 
 
-import edu.bupt.law.security.controller.request.LoginRequest;
-import edu.bupt.law.security.controller.request.RegisterRequest;
+import edu.bupt.law.common.utils.UUidUtils;
 import edu.bupt.law.security.exception.UserInternalException;
-import edu.bupt.law.security.service.UserService;
 import edu.bupt.law.security.utils.JWTUtils;
+import edu.bupt.law.user.controller.request.LoginRequest;
+import edu.bupt.law.user.controller.request.RegisterRequest;
+import edu.bupt.law.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/v1")
 public class UserController {
     @Autowired
     UserService userService;
@@ -32,10 +29,11 @@ public class UserController {
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest) {
         String username = loginRequest.getUsername();
+        System.out.println(username);
+        System.out.println(loginRequest.getPassword());
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(username, loginRequest.getPassword())
         );
-
         String token = JWTUtils.createTokenByAuthentication(authentication);
         Map<Object, Object> model = new HashMap<>();
         model.put("username", username);
@@ -48,5 +46,10 @@ public class UserController {
         return Optional.ofNullable(userService.registerUserByUsernameAndPassword(registerRequest.getUsername(), registerRequest.getPassword()))
                 .map(ResponseEntity::ok)
                 .orElseThrow(() -> new UserInternalException("用户" + registerRequest.getUsername() +"注册失败"));
+    }
+
+    @GetMapping("/hello")
+    public String hello(){
+        return UUidUtils.generateUuid();
     }
 }

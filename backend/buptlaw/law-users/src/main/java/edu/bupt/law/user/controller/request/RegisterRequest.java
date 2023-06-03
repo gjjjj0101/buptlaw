@@ -1,4 +1,4 @@
-package edu.bupt.law.security.controller.request;
+package edu.bupt.law.user.controller.request;
 
 import lombok.Data;
 

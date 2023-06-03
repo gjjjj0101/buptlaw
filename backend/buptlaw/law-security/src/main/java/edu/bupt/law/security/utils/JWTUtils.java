@@ -2,7 +2,6 @@ package edu.bupt.law.security.utils;
 
 
 import edu.bupt.law.security.constants.SecurityConstants;
-import edu.bupt.law.security.domain.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -20,13 +19,11 @@ public class JWTUtils {
 
     private static final String AUTHORITIES_KEY = "roles";
 
-    private static final String secret = Base64.getEncoder().encodeToString(SecurityConstants.SECRET_KEY.getBytes());
+    private static String secret = Base64.getEncoder().encodeToString(SecurityConstants.SECRET_KEY.getBytes());
 
 
     public static String createTokenByAuthentication(Authentication authentication) {
         String username = authentication.getName();
-        Object user = authentication.getPrincipal();
-
 
         Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
 
@@ -64,16 +61,12 @@ public class JWTUtils {
                         ? AuthorityUtils.NO_AUTHORITIES
                         : AuthorityUtils.commaSeparatedStringToAuthorityList(authoritiesClaim.toString());
         try {
-            User principal = new User()
-                    .setUsername(claims.getSubject())
-                    .setRoles(authorities
-                            .stream()
-                            .map(GrantedAuthority::getAuthority)
-                            .collect(Collectors.toList()));
+            String principal = claims.getSubject();
 
             return new UsernamePasswordAuthenticationToken(principal, token, authorities);
 
         } catch (NumberFormatException e) {
+            System.out.println(e.getMessage());
             return null;
         }
     }
@@ -85,17 +78,5 @@ public class JWTUtils {
         } catch (Exception e) {
             return false;
         }
-    }
-
-    public static User getUser(String token) {
-        Claims claims = Jwts
-                .parser()
-                .setSigningKey(secret)
-                .parseClaimsJws(token)
-                .getBody();
-        User user = new User()
-                .setUsername(claims.getSubject());
-
-        return user;
     }
 }

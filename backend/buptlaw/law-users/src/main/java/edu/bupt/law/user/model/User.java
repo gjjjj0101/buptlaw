@@ -1,4 +1,4 @@
-package edu.bupt.law.security.domain;
+package edu.bupt.law.user.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Data;
