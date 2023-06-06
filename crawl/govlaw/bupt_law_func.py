@@ -1,19 +1,16 @@
-# -*- coding: utf-8 -*-
 import os
 import random
+import shutil
+import subprocess
 import requests
 import urllib3
 from selenium import webdriver
-from time import sleep
-
 from selenium.webdriver.common.by import By
-import shutil  # 导入shutil模块
-# 多线程
-import concurrent.futures
+from time import sleep
 from docx import Document
 
-# 去掉warning   不检测证书
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+
 my_headers = [
     "Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36",
     "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.153 Safari/537.36",
@@ -31,20 +28,19 @@ my_headers = [
 ]
 
 
+# 获取response
 def get_safe_response(url, params):
     headers = {'User-Agent': random.choice(my_headers)}
     response = requests.get(url=url, headers=headers, verify=False, params=params)
     return response
 
 
+# 点击下载文件
 def downLoadFile(url, save_path):
     options = webdriver.ChromeOptions()
     prefs = {'profile.default_content_settings.popups': 0, 'download.default_directory': save_path}
     options.add_experimental_option('prefs', prefs)
     # 隐藏浏览器窗口
-
-    params = {'cmd': 'Page.setDownloadBehavior', 'params': {'behavior': 'allow', 'downloadPath': "d:\\download\\law"}}
-
     options.add_argument("--headless")
     options.add_argument("--window-size=1920,1080")
     options.add_experimental_option("prefs", {
@@ -58,46 +54,41 @@ def downLoadFile(url, save_path):
     # 允许无头下载
     driver.execute_cdp_cmd('Page.setDownloadBehavior', {'behavior': 'allow', 'downloadPath': "d:\\download\\law"})
     driver.get(url)
-    title = driver.find_element(By.CLASS_NAME, 'title')
-    print(title.text)
     img = driver.find_element(By.CLASS_NAME, 'erweima')
     src = img.get_attribute('src')  # 获取img元素的src属性
     # print(src)  # 打印src
     old_name = src.split('/')[-1].split('.')[0]
     print(old_name)
     driver.find_element(By.ID, "downLoadFile").click()
-    publish_time = driver.find_element(By.ID, 'gbrq').text
     sleep(1)
     # os.rename('C:/Users/11575/Downloads/' + old_name + '.docx',
     #           save_path + '[' + publish_time + ']' + title.text + '.docx')
     try:
         shutil.move("d:\\download\\law\\" + old_name + '.doc',
-                    save_path + '[' + publish_time + ']' + title.text + '.doc')
+                    save_path + old_name + '.doc')
     except:
         try:
             shutil.move("d:\\download\\law\\" + old_name + '.docx',
-                        save_path + '[' + publish_time + ']' + title.text + '.docx')
+                        save_path + old_name + '.docx')
         except Exception as e:
             print(e)
     driver.quit()
+    return old_name
 
 
-def mkdir(file_path):
-    if not os.path.exists(file_path):
-        os.makedirs(file_path)
-        print('创建文件夹', file_path)
-
-
+# 获取总页数
 def get_total_page(url, params):
     response = get_safe_response(url, params)
     result = response.json()
     result = result['result']
     total = result['totalSizes']
+    page_size = 10
     total_page = int(total / page_size) + 1
     # print(total_page)
     return total_page
 
 
+# 控制逻辑，已存在则不爬取
 def crawl_law(url, params, path):
     while 1:
         try:
@@ -127,49 +118,55 @@ def crawl_law(url, params, path):
                 pass
 
 
+# 将word转为html
+def word2html(input, output):
+    input_file = input
+    output_file = output
+
+    subprocess.run(['pandoc', input_file, '-o', output_file, '-s'])
+
+
+# 判断数据库中是否已经存在
+def is_exist_pid(pkey, cursor):
+    query = "SELECT * FROM laws WHERE p_id = %s"
+    cursor.execute(query, (pkey,))
+    if cursor.fetchone():
+        return True
+    else:
+        return False
+
+
+# 插入字段到数据库
+def inserfields(cnx, cursor, expiry, level, office, status, publish, title, res, pkey, p_id):
+    sql = "insert into laws(html,title,level,office,status,expiry,publish,pkey,p_id) values( % s,% s,% s,% s,% s,% s,% s,% s,% s)"
+    # 执行插入语句
+    cursor.execute(sql, (
+        res, title, level, office, status, expiry, publish, pkey, p_id))
+    # 提交事务
+    cnx.commit()
+
+
+# 创建文件夹
+def mkdir(file_path):
+    if not os.path.exists(file_path):
+        os.makedirs(file_path)
+        print('创建文件夹', file_path)
+
+
+def convert_doc_to_docx(doc_file, docx_file):
+    # 打开 DOC 文件
+    doc = Document(doc_file)
+
+    # 创建一个新的 DOCX 文件
+    docx = Document()
+
+    # 复制 DOC 文件的内容到 DOCX 文件
+    for element in doc.element.body:
+        docx.element.body.append(element)
+
+    # 保存 DOCX 文件
+    docx.save(docx_file)
+
+
 if __name__ == '__main__':
-    # url = 'https://flk.npc.gov.cn/detail2.html?ZmY4MDgxODE4NjljZGE0MDAxODZkZjRkNTE0NTdjMmU%3D'
-    # save_path = 'd:\\download\\law'
-    # downLoadFile(url, save_path)
-
-    url = 'https://flk.npc.gov.cn/api/'
-    types = ['flfg', 'xzfg', 'jcfg', 'sfjs', 'dfxfg']
-    type_duizhao = {
-        '法律法规': 'flfg',
-        '行政法规': 'xzfg',
-        '检查法规': 'jcfg',
-        '司法解释': 'sfjs',
-        '地方性法规': 'dfxfg'
-    }
-    page_num = 1
-    page_size = 10
-    for type in types:
-        save_path = 'D:\\download/law/'
-        type_path = ''
-        for key, value in type_duizhao.items():
-            if value == type:
-                type_path = key
-            path = save_path + type_path + '/'
-            mkdir(path)
-
-        params = {'type': type,
-                  'page': page_num,
-                  'size': page_size, }  # 要携带的参数，键为参数名，值为参数值
-        while 1:
-            try:
-                total_page = get_total_page(url, params)
-                break
-            except:
-                pass
-
-        current_page = 1
-        # 这里需要缩进 ！
-        with concurrent.futures.ThreadPoolExecutor(max_workers=8) as executor:
-            while current_page <= total_page:
-                params = {'type': type,
-                          'page': current_page,
-                          'size': page_size, }  # 要携带的参数，键为参数名，值为参数值
-                executor.submit(crawl_law, url,params,path)
-                # crawl_law(url,params,path)
-
-                current_page += 1
+    pass

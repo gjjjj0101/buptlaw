@@ -1,4 +1,4 @@
-# BuptLaw
+ # BuptLaw
 
 ## 数据获取思路
 
@@ -12,18 +12,17 @@
 
 ## 代码实现细节
 ### 文件说明
-#### test文件夹
-此文件夹用来测试各种功能，测试完成后，可进行拼接完成最终任务
-
-|文件名| 作用                      |
-|---|-------------------------|
-|geturl.html| 发送请求，获取所有链接             |
-|connecttorTest.py| 测试数据库链接，尝试插入操作          |
-|pandoctest.py| 测试word转html，使用pandoc转换器 |
-|提取字段test.py|获取响应，提取对应字段|
-
-#### temp文件夹
-存放临时文件
+#### bupt_law_func.py
+存放此爬虫中用到的各种功能函数
+- word2html 格式转换。word到html
+- convert_doc_to_docx 格式转换，从doc转为docx，解决pandoc识别问题
+- mkdir 创建文件夹，没有则创建按
+- inserfields 插入字段，向数据库中插入名称、html、时效性、发布日期等
+- is_exist_pid 判断数据库中是否存在，根据id判断
+- get_total_page 获取总条数，计算总页数
+- downLoadFile 根据url，利用Selenium模拟浏览器点击下载
+- get_safe_response 发送请求
+- 
 
 
 
@@ -49,14 +48,6 @@
 ---------------------------------
 
 ## 数据库与后端对接
-
-数据库 mysql
-
-数据库名称 bupt_law
-
-数据表名称 laws
-
-端口号 3306（默认）
 
 ### laws数据库字段说明
 
