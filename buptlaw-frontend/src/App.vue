@@ -1,18 +1,18 @@
-<script setup>
+<script setup lang="ts">
 
-import Home from "./components/Home.vue";
 </script>
 
 <template>
-  <router-view/>
+  <h1>Hello World</h1>
 </template>
 
 <style>
 * {
-  padding: 0;
   margin: 0;
 }
 
 :root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
 }
+
 </style>
