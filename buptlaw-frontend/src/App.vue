@@ -5,10 +5,12 @@ import NavigatorBar from "./components/navigator-bar.vue";
 
 <template>
   <el-container>
-    <el-header style="padding: 0">
+    <el-header style="padding: 0; height: 84px">
       <navigator-bar/>
     </el-header>
-    <el-main style="height: 2000px">Main</el-main>
+    <el-main style="padding: 0">
+      <router-view/>
+    </el-main>
 <!--    <el-footer style="background: red">Footer</el-footer>-->
   </el-container>
 </template>
@@ -16,6 +18,7 @@ import NavigatorBar from "./components/navigator-bar.vue";
 <style>
 * {
   margin: 0;
+  padding: 0;
 }
 
 :root {
@@ -24,9 +27,19 @@ import NavigatorBar from "./components/navigator-bar.vue";
 
   --blue: #409eff;
 
-  --text-title-color: #333333;
-  --text-content-color: #444444;
+  --text-color: #333333;
+  --text-gray-color: #444444;
   --shadow-color: #eeeeee;
 }
+
+.card {
+  background: #ffffff;
+  border-radius: 8px;
+  box-shadow: #eeeeee 0 8px 24px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
 
 </style>
