@@ -4,8 +4,8 @@
 
 <template>
   <div id="navigator-bar">
-    <font-awesome-icon icon="landmark" id="navigator-bar-logo"/>
-    <span id="navigator-bar-text">北邮某某律所</span>
+    <font-awesome-icon icon="gavel" id="navigator-bar-logo"/>
+    <span id="navigator-bar-text">某某律所</span>
   </div>
 </template>
 
@@ -22,9 +22,7 @@ export default {
   display: flex;
   align-items: center;
 
-  padding: 4px 120px;
-  font-size: 24px;
-
+  padding: 0 240px;
   box-shadow: var(--shadow-color) 0 8px 20px;
 }
 
@@ -34,7 +32,9 @@ export default {
 }
 
 #navigator-bar-text {
-  margin-left: 12px;
-  color: var(--text-title-color);
+  font-size: 28px;
+  font-weight: bold;
+  margin-left: 16px;
+  color: var(--blue);
 }
 </style>
