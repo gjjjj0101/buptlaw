@@ -5,7 +5,7 @@ import NavigatorBar from "./components/navigator-bar.vue";
 
 <template>
   <el-container>
-    <el-header style="padding: 0; height: 84px">
+    <el-header style="padding: 0; height: 84px; z-index: 9">
       <navigator-bar/>
     </el-header>
     <el-main style="padding: 0">
@@ -35,9 +35,9 @@ import NavigatorBar from "./components/navigator-bar.vue";
 .card {
   background: #ffffff;
   border-radius: 8px;
-  box-shadow: #eeeeee 0 8px 24px;
+  box-shadow: var(--shadow-color) 0 8px 24px;
   overflow: hidden;
-  display: flex;
+  display: inline-block;
   flex-direction: column;
   padding: 24px;
 }

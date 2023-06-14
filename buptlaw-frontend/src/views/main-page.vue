@@ -8,7 +8,7 @@ const notOpenNotification = () => {
   })
 }
 
-interface ToolsItem {
+interface ToolItem {
   icon: string,           // 图标名称
   name: string,           // 工具名称
 
@@ -19,7 +19,7 @@ interface ToolsItem {
   fallback?: () => void,  // 点击时的回调
 }
 
-const lawToolsList: ToolsItem[] = [
+const lawToolItems: ToolItem[] = [
   {
     icon: 'book-bookmark',
     name: '法条查询',
@@ -30,7 +30,7 @@ const lawToolsList: ToolsItem[] = [
   {
     icon: 'file-invoice',
     name: '刑审智库',
-    background: 'linear-gradient(150deg, #2B32B2, #1488CC)',
+    background: 'linear-gradient(150deg, #3a41ce, #1488CC)',
     fallback: notOpenNotification,
   },
   {
@@ -43,24 +43,57 @@ const lawToolsList: ToolsItem[] = [
     icon: 'comments',
     name: '法治宣传',
     background: 'linear-gradient(150deg, #2193b0, #6dd5ed)',
+    fallback: notOpenNotification,
+  },
+]
+
+const caseToolItems: ToolItem[] = [
+  {
+    icon: 'list',
+    name: '案件管理',
+    background: 'linear-gradient(150deg, #56ab2f, #a8e063)',
+    fallback: notOpenNotification,
+  },
+  {
+    icon: 'yen-sign',
+    name: '违约金计算',
+    background: 'linear-gradient(150deg, #ff4b1f, #ff9068)',
+    fallback: notOpenNotification,
   }
 ]
 </script>
 
 <template>
   <div id="main">
-    <div class="card" style="width: 420px; ">
+    <div class="card" style="width: 360px; ">
       <div class="card-title">法律法规相关</div>
 
       <el-row class="tools-box">
-        <el-col :span="6" v-for="i in lawToolsList" style="display: flex; justify-content: center">
-          <div class="tools-item" @click="i.fallback">
-            <div class="tools-item-icon" :style="'background: ' + i.background">
+        <el-col :span="6" v-for="i in lawToolItems" style="display: flex; justify-content: center">
+          <div class="tool-item" @click="i.fallback">
+            <div class="tool-item-icon" :style="'background: ' + i.background">
               <font-awesome-icon :icon="i.icon"/>
             </div>
-            <div class="tools-item-text">{{ i.name }}</div>
+            <div class="tool-item-text">{{ i.name }}</div>
 
-            <router-link v-if="i.isLink" :to="{ name: i.pathName }" class="tools-item-link"/>
+            <router-link v-if="i.isLink" :to="{ name: i.pathName }" class="tool-item-link"/>
+          </div>
+        </el-col>
+      </el-row>
+    </div>
+
+    <div class="card" style="width: 360px; margin-left: 48px">
+      <div class="card-title">案件相关</div>
+
+      <el-row class="tools-box">
+        <el-col :span="6" v-for="i in caseToolItems" style="display: flex; justify-content: center">
+          <div class="tool-item" @click="i.fallback">
+            <div class="tool-item-icon" :style="'background: ' + i.background">
+              <font-awesome-icon :icon="i.icon"/>
+            </div>
+            <div class="tool-item-text">{{ i.name }}</div>
+
+            <router-link v-if="i.isLink" :to="{ name: i.pathName }" class="tool-item-link"/>
           </div>
         </el-col>
       </el-row>
@@ -76,7 +109,7 @@ export default {
 
 <style scoped>
 #main {
-  background: #eeeeee;
+  background: #F9F9F9;
   height: 2000px;
   padding: 48px 240px;
 }
@@ -92,40 +125,41 @@ export default {
   width: 100%;
 }
 
-.tools-item {
-  display: inline-block;
-  width: 64px;
+.tool-item {
+  width: 84px;
   margin: 12px 0;
-  text-align: center;
-  transition: all 0.2s;
   color: var(--text-color);
   user-select: none;
   cursor: pointer;
   position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.tools-item:hover .tools-item-text {
+.tool-item:hover .tool-item-text {
   color: var(--theme-color);
 }
 
-.tools-item-icon {
-  width: 64px;
-  height: 64px;
+.tool-item-icon {
+  width: 56px;
+  height: 56px;
   border-radius: 12px;
   display: flex;
   justify-content: center;
   align-items: center;
   background: #8e9eab;
   color: rgba(255, 255, 255, 0.9);
-  font-size: 32px;
+  font-size: 28px;
 }
 
-.tools-item-text {
+.tool-item-text {
   margin-top: 8px;
   font-size: 14px;
+  transition: all 0.2s;
 }
 
-.tools-item-link {
+.tool-item-link {
   position: absolute;
   top: 0;
   left: 0;
