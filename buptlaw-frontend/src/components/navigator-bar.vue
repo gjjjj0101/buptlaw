@@ -22,8 +22,7 @@ export default {
   display: flex;
   align-items: center;
 
-  padding: 0 240px;
-  box-shadow: var(--shadow-color) 0 4px 12px;
+  padding: 0 48px;
 }
 
 #navigator-bar-logo {

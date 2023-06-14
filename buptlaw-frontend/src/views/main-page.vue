@@ -51,8 +51,9 @@ const caseToolItems: ToolItem[] = [
   {
     icon: 'list',
     name: '案件管理',
+    isLink: true,
+    pathName: 'case',
     background: 'linear-gradient(150deg, #56ab2f, #a8e063)',
-    fallback: notOpenNotification,
   },
   {
     icon: 'yen-sign',
@@ -109,8 +110,6 @@ export default {
 
 <style scoped>
 #main {
-  background: #F9F9F9;
-  height: 2000px;
   padding: 48px 240px;
 }
 

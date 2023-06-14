@@ -21,6 +21,11 @@ const routes = [
     path: '/law',
     name: 'law',
     component: () => import('../views/law-page.vue'),
+  },
+  {
+    path: '/case',
+    name: 'case',
+    component: () => import('../views/case-page.vue'),
   }
 ]
 
