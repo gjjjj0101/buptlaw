@@ -1,5 +1,5 @@
-<script setup>
-import {ElNotification} from "element-plus";
+<script setup lang="ts">
+import { ElNotification } from "element-plus";
 
 const notOpenNotification = () => {
   ElNotification({
@@ -7,37 +7,68 @@ const notOpenNotification = () => {
     type: 'error',
   })
 }
+
+interface ToolsItem {
+  icon: string,           // 图标名称
+  name: string,           // 工具名称
+
+  isLink?: boolean,       // 是否为链接
+  pathName?: string,      // 路由名称
+
+  background?: string,    // 背景色
+  fallback?: () => void,  // 点击时的回调
+}
+
+const lawToolsList: ToolsItem[] = [
+  {
+    icon: 'book-bookmark',
+    name: '法条查询',
+    isLink: true,
+    pathName: 'law',
+    background: 'linear-gradient(150deg, #F37335, #FDC830)',
+  },
+  {
+    icon: 'file-invoice',
+    name: '刑审智库',
+    background: 'linear-gradient(150deg, #2B32B2, #1488CC)',
+    fallback: notOpenNotification,
+  },
+  {
+    icon: 'file-contract',
+    name: '元典智库',
+    background: 'linear-gradient(150deg, #4e54c8, #8f94fb)',
+    fallback: notOpenNotification,
+  },
+  {
+    icon: 'comments',
+    name: '法治宣传',
+    background: 'linear-gradient(150deg, #2193b0, #6dd5ed)',
+  }
+]
 </script>
 
 <template>
   <div id="main">
-    <div class="card" style="height: 200px; width: 480px;">
+    <div class="card" style="width: 420px; ">
       <div class="card-title">法律法规相关</div>
 
-      <div style="display: flex; justify-content: center">
-        <div class="tools-box">
-          <div class="tools-item">
-            <router-link :to="{ name: 'law' }" style="text-decoration: none; color: var(--text-color)">
-              <div class="tools-item-icon">
-                <font-awesome-icon icon="book"/>
-              </div>
-              <div class="tools-item-text">法条查询</div>
-            </router-link>
-          </div>
-
-          <div class="tools-item" v-for="i in 3" @click="notOpenNotification">
-            <div class="tools-item-icon" style="background: gray">
-              <font-awesome-icon icon="xmark"/>
+      <el-row class="tools-box">
+        <el-col :span="6" v-for="i in lawToolsList" style="display: flex; justify-content: center">
+          <div class="tools-item" @click="i.fallback">
+            <div class="tools-item-icon" :style="'background: ' + i.background">
+              <font-awesome-icon :icon="i.icon"/>
             </div>
-            <div class="tools-item-text">未开放</div>
+            <div class="tools-item-text">{{ i.name }}</div>
+
+            <router-link v-if="i.isLink" :to="{ name: i.pathName }" class="tools-item-link"/>
           </div>
-        </div>
-      </div>
+        </el-col>
+      </el-row>
     </div>
   </div>
 </template>
 
-<script>
+<script lang="ts">
 export default {
   name: "main-page"
 }
@@ -54,45 +85,51 @@ export default {
   font-size: 20px;
   font-weight: bold;
   color: var(--text-color);
-  margin: 24px 0 0 24px;
 }
 
 .tools-box {
-  margin-top: 24px;
-  padding: 0 24px;
+  margin-top: 12px;
+  width: 100%;
 }
 
 .tools-item {
   display: inline-block;
   width: 64px;
-  margin: 0 18px;
+  margin: 12px 0;
   text-align: center;
   transition: all 0.2s;
   color: var(--text-color);
   user-select: none;
   cursor: pointer;
+  position: relative;
 }
 
 .tools-item:hover .tools-item-text {
-  color: var(--blue);
+  color: var(--theme-color);
 }
 
 .tools-item-icon {
   width: 64px;
   height: 64px;
   border-radius: 12px;
-  background: linear-gradient(150deg, #283048, #859398);
-
   display: flex;
   justify-content: center;
   align-items: center;
-
+  background: #8e9eab;
   color: rgba(255, 255, 255, 0.9);
-  font-size: 28px;
+  font-size: 32px;
 }
 
 .tools-item-text {
   margin-top: 8px;
   font-size: 14px;
+}
+
+.tools-item-link {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
 }
 </style>
