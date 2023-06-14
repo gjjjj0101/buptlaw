@@ -27,7 +27,7 @@ export default {
 }
 
 #navigator-bar-logo {
-  color: var(--blue);
+  color: var(--theme-color);
   font-size: 36px;
 }
 
@@ -35,6 +35,6 @@ export default {
   font-size: 28px;
   font-weight: bold;
   margin-left: 16px;
-  color: var(--blue);
+  color: var(--theme-color);
 }
 </style>

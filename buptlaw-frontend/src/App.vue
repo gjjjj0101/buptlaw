@@ -25,7 +25,7 @@ import NavigatorBar from "./components/navigator-bar.vue";
   font-family: "PingFang SC", "Microsoft Yahei", "Helvetica Neue", Helvetica, "Segoe UI", Arial, sans-serif;
   overflow-x: hidden;
 
-  --blue: #409eff;
+  --theme-color: #409eff;
 
   --text-color: #333333;
   --text-gray-color: #444444;
@@ -39,7 +39,6 @@ import NavigatorBar from "./components/navigator-bar.vue";
   overflow: hidden;
   display: flex;
   flex-direction: column;
+  padding: 24px;
 }
-
-
 </style>
