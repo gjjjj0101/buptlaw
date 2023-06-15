@@ -13,7 +13,7 @@
 import { BACKEND_URL } from "../consts/urls";
 import axios           from "axios";
 
-axios.defaults.baseURL = BACKEND_URL;
+// axios.defaults.baseURL = BACKEND_URL;
 // axios.defaults.headers.common['Authorization'] = AUTH_TOKEN;
 axios.defaults.headers.post['Content-Type'] = 'application/json';
 
