@@ -1,18 +1,9 @@
 <script setup lang="ts">
-import NavigatorBar from "./components/navigator-bar.vue";
 
 </script>
 
 <template>
-  <el-container>
-    <el-header style="padding: 0; height: 84px; z-index: 9">
-      <navigator-bar/>
-    </el-header>
-    <el-main style="padding: 0; min-height: calc(100vh - 84px); background: #F9F9F9">
-      <router-view/>
-    </el-main>
-<!--    <el-footer style="background: red">Footer</el-footer>-->
-  </el-container>
+  <router-view/>
 </template>
 
 <style>
@@ -26,6 +17,7 @@ import NavigatorBar from "./components/navigator-bar.vue";
   overflow-x: hidden;
 
   --theme-color: #409eff;
+  --theme-active-color: #66b1ff;
 
   --text-color: #333333;
   --text-gray-color: #444444;

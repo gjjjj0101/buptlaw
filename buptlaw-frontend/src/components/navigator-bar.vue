@@ -22,7 +22,7 @@ export default {
   display: flex;
   align-items: center;
 
-  padding: 0 48px;
+  padding: 0 0 0 240px;
 }
 
 #navigator-bar-logo {

@@ -14,19 +14,32 @@ import { createRouter, createWebHashHistory, RouterOptions } from "vue-router";
 const routes = [
   {
     path: '/',
+    name: 'login',
+    redirect: '/login',
+    component: () => import('../views/login-page.vue'),
+  },
+  {
+    path: '/main',
     name: 'main',
     component: () => import('../views/main-page.vue'),
+    children: [
+      {
+        path: '/main',
+        name: 'tools',
+        component: () => import('../views/tool-page.vue'),
+      },
+      {
+        path: '/main/law',
+        name: 'law',
+        component: () => import('../views/law-page.vue'),
+      },
+      {
+        path: '/main/case',
+        name: 'case',
+        component: () => import('../views/case-page.vue'),
+      },
+    ]
   },
-  {
-    path: '/law',
-    name: 'law',
-    component: () => import('../views/law-page.vue'),
-  },
-  {
-    path: '/case',
-    name: 'case',
-    component: () => import('../views/case-page.vue'),
-  }
 ]
 
 export const router = createRouter({
