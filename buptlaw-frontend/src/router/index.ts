@@ -10,6 +10,7 @@
 //
 //--------------------------------------------------------------------------
 import { createRouter, createWebHashHistory, RouterOptions } from "vue-router";
+import { store }                                             from "../store/index";
 
 const routes = [
   {
@@ -24,10 +25,11 @@ const routes = [
   {
     path: '/main',
     name: 'main',
+    redirect: '/main/tools',
     component: () => import('../views/main-page.vue'),
     children: [
       {
-        path: '/main',
+        path: '/main/tools',
         name: 'tools',
         component: () => import('../views/tool-page.vue'),
       },
@@ -49,3 +51,12 @@ export const router = createRouter({
   history: createWebHashHistory(),
   routes,
 } as RouterOptions)
+
+// 路由守卫
+// 用于判断是否登录，如果没有登录则不允许访问其他页面，会被重定向到登录页面
+router.beforeEach((to, from) => {
+  // 用 store 里的 token 判断是否登录
+  if (to.name !== 'login' && !store.state.token) {
+    return '/login';
+  }
+})

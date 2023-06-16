@@ -14,8 +14,8 @@ import { BACKEND_URL } from "../consts/urls";
 import axios           from "axios";
 
 // axios.defaults.baseURL = BACKEND_URL;
-// axios.defaults.headers.common['Authorization'] = AUTH_TOKEN;
-axios.defaults.headers.post['Content-Type'] = 'application/json';
+axios.defaults.headers.common['Authorization'] = localStorage.getItem('token')
+axios.defaults.headers.post['Content-Type'] = 'application/json'
 
 export function get<T>(url: string, params?: any) {
   return new Promise<T>((resolve, reject) => {
