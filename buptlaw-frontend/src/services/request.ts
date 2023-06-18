@@ -10,13 +10,13 @@
 //
 //--------------------------------------------------------------------------
 
-import { BACKEND_URL } from "../consts/urls";
-import axios                         from "axios";
+import { BACKEND_URL }    from "../consts/urls";
+import axios              from "axios";
 import { ElNotification } from "element-plus";
 
 // axios.defaults.baseURL = BACKEND_URL;
 axios.defaults.headers.common['Authorization'] = localStorage.getItem('token')
-axios.defaults.headers.post['Content-Type'] = 'application/json'
+axios.defaults.headers.post['Content-Type']    = 'application/json'
 
 // 添加响应拦截器
 axios.interceptors.response.use(function (response) {

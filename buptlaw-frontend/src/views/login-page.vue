@@ -5,6 +5,7 @@ import { router }         from "../router/index";
 import { store }          from "../store/index";
 import { login }          from "../services/user";
 import { ElNotification } from "element-plus";
+import axios              from "axios";
 
 const username = ref<string>('')
 const password = ref<string>('')
@@ -33,6 +34,7 @@ const onLogin = () => {
         store.commit('setState', res)
         localStorage.setItem('token', res.token)
         localStorage.setItem('username', res.username)
+        axios.defaults.headers.common['Authorization'] = res.token
 
         ElNotification({
           title: '登录成功',
