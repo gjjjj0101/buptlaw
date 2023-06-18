@@ -51,8 +51,8 @@ const handleLawClassCheckBoxClick = (data: any) => {
 }
 
 onMounted(() => {
-  getLawBySearch(lawSearchBody.value).then(res => {
-    // console.log(res)
+  getLawBySearch(lawSearchBody.value, 1, 10).then(res => {
+    console.log(res.content)
   })
 })
 </script>
@@ -107,11 +107,11 @@ onMounted(() => {
           <el-col :span="11" :offset="2">
             <el-form-item label="时效性">
               <el-checkbox-group v-model="lawSearchBody.status">
-                <el-checkbox :label="1">已有效</el-checkbox>
-                <el-checkbox :label="3">未生效</el-checkbox>
-                <el-checkbox :label="5">已修改</el-checkbox>
-                <el-checkbox :label="7">无时效</el-checkbox>
-                <el-checkbox :label="9">已废止</el-checkbox>
+                <el-checkbox label="1">已有效</el-checkbox>
+                <el-checkbox label="3">未生效</el-checkbox>
+                <el-checkbox label="5">已修改</el-checkbox>
+                <el-checkbox label="7">无时效</el-checkbox>
+                <el-checkbox label="9">已废止</el-checkbox>
               </el-checkbox-group>
             </el-form-item>
             <el-form-item label="法规类型" style="margin-top: 36px">

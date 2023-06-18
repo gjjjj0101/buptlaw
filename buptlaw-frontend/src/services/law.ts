@@ -13,6 +13,9 @@ import request             from '../services/request';
 import { LawSearchBody }   from "../types/law";
 import { LAW_BACKEND_URL } from "../consts/urls";
 
-export const getLawBySearch = (key?: LawSearchBody) => {
-  return request.get(LAW_BACKEND_URL + '/regulation/search', key);
+export const getLawBySearch = (key?: LawSearchBody, page?: number, size?: number) => {
+  return request.post(LAW_BACKEND_URL + '/regulation/search'
+    + (page ? `?page=${page}` : '')
+    + (size ? `&size=${size}` : '')
+    , key);
 }
