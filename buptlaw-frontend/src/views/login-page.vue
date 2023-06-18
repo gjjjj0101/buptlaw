@@ -10,6 +10,24 @@ const username = ref<string>('')
 const password = ref<string>('')
 
 const onLogin = () => {
+  if (username.value === '') {
+    ElNotification({
+      title: '登录失败',
+      message: '用户名不能为空',
+      type: 'error'
+    })
+    return
+  }
+
+  if (password.value === '') {
+    ElNotification({
+      title: '登录失败',
+      message: '密码不能为空',
+      type: 'error'
+    })
+    return
+  }
+
   login({username: username.value, password: password.value})
       .then(res => {
         store.commit('setState', res)
