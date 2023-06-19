@@ -8,6 +8,7 @@ import { getFormatDate, getFormatLawStatus, getFormatLawStatusColor } from "../u
 // 搜索查询的参数
 const lawSearchBody = ref<LawSearchBody>({
   content: "",
+  title: true,
   isExactly: false,
 } as LawSearchBody)
 
@@ -41,17 +42,17 @@ const handleLawClassCheckBoxClick = (data: any) => {
 const timeOnChange = (type: string) => {
   if (type === 'publish') {
     if (publishTimeRange.value[0]) {
-      lawSearchBody.value.publishStart = Math.floor((publishTimeRange.value[0] as Date).getTime() / 1000)
+      lawSearchBody.value.publishStart = (publishTimeRange.value[0] as Date).getTime()
     }
     if (publishTimeRange.value[1]) {
-      lawSearchBody.value.publishEnd = Math.floor((publishTimeRange.value[1] as Date).getTime() / 1000)
+      lawSearchBody.value.publishEnd = (publishTimeRange.value[1] as Date).getTime()
     }
   } else if (type === 'expiry') {
     if (expiryTimeRange.value[0]) {
-      lawSearchBody.value.expiryStart = Math.floor((expiryTimeRange.value[0] as Date).getTime() / 1000)
+      lawSearchBody.value.expiryStart = (expiryTimeRange.value[0] as Date).getTime()
     }
     if (expiryTimeRange.value[1]) {
-      lawSearchBody.value.expiryEnd = Math.floor((expiryTimeRange.value[1] as Date).getTime() / 1000)
+      lawSearchBody.value.expiryEnd = (expiryTimeRange.value[1] as Date).getTime()
     }
   }
 }
@@ -65,12 +66,12 @@ const searchResult = ref<(Law & {
 // 点击搜索按钮时，发送搜索请求
 const onSearch = () => {
   getLawBySearch(lawSearchBody.value, 1, 10).then(res => {
-    searchResult.value = (res.content as Law[]).map(i => ({
-      ...i,
-      formatPublishTime: i.publish ? getFormatDate(i.publish) : "未知",
-      formatStatus: i.status ? getFormatLawStatus(i.status) : "未知",
+    searchResult.value = (res.searchHits).map(i => ({
+      ...(i.content),
+      formatPublishTime: i.content.publish ? getFormatDate(i.content.publish) : "未知",
+      formatStatus: i.content.status ? getFormatLawStatus(i.content.status) : "未知",
     }))
-    console.log(res.content)
+    console.log(res)
   })
 }
 

@@ -21,6 +21,10 @@ export interface Law {
   pkey: string;           //
   id: string;             // id
   p_id: string;           //
+  law_class_1: string;    // 法律效力大类代码
+  law_class_2: string;    // 法律效力小类代码
+  office_class_1: string; // 制定机关大类代码
+  office_class_2: string; // 制定机关小类代码
 }
 
 export interface LawSearchBody {
@@ -37,4 +41,26 @@ export interface LawSearchBody {
   publishEnd?: number;    // 发布时间范围右区间时间戳
   expiryStart?: number;   // 失效时间范围左区间时间戳
   expiryEnd?: number;     // 失效时间范围右区间时间戳
+}
+
+export interface LawSearchResponse {
+  totalHits: number;          // 匹配查询条件总条数
+  totalHitsRelation: string;
+  maxScore: number;
+  scrollId: string;
+  searchHits: {               // 命中列表
+    index: string;
+    id: string;
+    score: number;
+    sortValues: string[];
+    content: Law;
+    innerHits: any;
+    nestedMetaData: any;
+    routing: any;
+    explanation: any;
+    matchedQueries: string[];
+  }[],
+  aggregations: any;
+  suggest: any;
+  empty: boolean;               // 搜索结果是否为空
 }
