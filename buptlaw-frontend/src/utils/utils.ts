@@ -10,10 +10,12 @@
 //
 //--------------------------------------------------------------------------
 
-// 传入10位时间戳，返回格式化后的日期
+// 传入时间戳返回格式化后的日期
 // xxxx年xx月xx日
 export const getFormatDate = (timestamp: number) => {
-  const date = new Date(timestamp * 1000);
+  // 如果是10位的时间戳，转换为13位
+  if (timestamp.toString().length === 10) timestamp *= 1000;
+  const date = new Date(timestamp);
   return `${date.getFullYear()}年${date.getMonth() + 1}月${date.getDate()}日`;
 }
 
