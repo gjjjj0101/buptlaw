@@ -11,8 +11,16 @@
 //--------------------------------------------------------------------------
 
 export interface Law {
-  id: string;
-
+  expiry: number;         // 失效时间
+  publish: number;        // 发布时间
+  office: string[];       // 制定机关
+  status: string;         // 时效性
+  level: string;          // 法律效力位阶
+  html: string;           // 正文
+  title: string;          // 标题
+  pkey: string;           //
+  id: string;             // id
+  p_id: string;           //
 }
 
 export interface LawSearchBody {

@@ -14,7 +14,7 @@ import { LawSearchBody }   from "../types/law";
 import { LAW_BACKEND_URL } from "../consts/urls";
 
 export const getLawBySearch = (key?: LawSearchBody, page?: number, size?: number) => {
-  return request.post(LAW_BACKEND_URL + '/regulation/search'
+  return request.post(LAW_BACKEND_URL + '/regulation/mixed'
     + (page ? `?page=${page}` : '')
     + (size ? `&size=${size}` : '')
     , key);
