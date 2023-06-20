@@ -9,9 +9,9 @@
 //  History:    6月-15-2023   QQK  Created
 //
 //--------------------------------------------------------------------------
-import request                                                            from '../services/request';
-import { LawSearchBody, LawMixedSearchResponse, LawNormalSearchResponse } from "../types/law";
-import { LAW_BACKEND_URL }                                                from "../consts/urls";
+import request                                                                 from '../services/request';
+import { LawSearchBody, LawMixedSearchResponse, LawNormalSearchResponse, Law } from "../types/law";
+import { LAW_BACKEND_URL }                                                     from "../consts/urls";
 
 // 混合查询法律法规
 export const getLawByMixedSearch = (key?: LawSearchBody, page?: number, size?: number) => {
@@ -35,4 +35,10 @@ export const getLawByOffice = (office: string, page?: number, size?: number) => 
     + `?office=${office}`
     + (page !== undefined ? `&page=${page}` : '')
     + (size !== undefined ? `&size=${size}` : ''))
+}
+
+// 根据 id 获得法律法规
+export const getLawById = (id: string) => {
+  return request.get<Law>(LAW_BACKEND_URL + '/regulation/id'
+    + `?id=${id}`)
 }

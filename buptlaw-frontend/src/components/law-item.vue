@@ -1,8 +1,14 @@
 <script setup lang="ts">
 import { Law }           from "../types/law";
 import { getFormatDate } from "../utils/utils";
+import { onMounted }     from "vue";
 
 const props = defineProps<{ law: Law }>()
+
+let law: Law
+onMounted(() => {
+  law = props.law
+})
 </script>
 
 <template>
@@ -10,10 +16,13 @@ const props = defineProps<{ law: Law }>()
     <el-col :span="1" style="display: flex; align-items: center">
       <div class="law-item-dot"/>
     </el-col>
-    <el-col :span="17">
-      {{ props.law.title }}
+    <el-col :span="17" style="cursor: pointer">
+      <router-link :to="{ name: 'law-detail', params: { id: props.law.id } }"
+                   style="text-decoration: none; color: var(--text-color)">
+        {{ props.law.title }}
+      </router-link>
     </el-col>
-    <el-col :span="6" style="text-align: center">
+    <el-col :span="6" style="text-align: center; color: var(--theme-active-color)">
       {{ props.law.publish ? getFormatDate(props.law.publish) : '未知' }}
     </el-col>
   </el-row>

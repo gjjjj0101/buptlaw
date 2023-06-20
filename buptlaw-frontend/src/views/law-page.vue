@@ -303,7 +303,7 @@ export default {
 
 <style scoped>
 #law {
-  padding: 0 360px;
+  padding: 0 360px 120px;
 }
 
 #law-search-box {
