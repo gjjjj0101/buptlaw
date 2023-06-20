@@ -114,6 +114,24 @@ export const LAW_CLASS_TREE_SELECT_LIST = [
   {
     value: '0600',
     label: '司法解释',
+    children: [
+      {
+        value: '0601',
+        label: '高检司法解释',
+      },
+      {
+        value: '0602',
+        label: '高法司法解释',
+      },
+      {
+        value: '0603',
+        label: '联合发布司法解释',
+      },
+      {
+        value: '0604',
+        label: '修改、废止的决定',
+      }
+    ]
   }
 ]
 

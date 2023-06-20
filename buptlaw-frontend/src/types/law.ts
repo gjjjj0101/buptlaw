@@ -43,7 +43,7 @@ export interface LawSearchBody {
   expiryEnd?: number;     // 失效时间范围右区间时间戳
 }
 
-export interface LawSearchResponse {
+export interface LawMixedSearchResponse {
   totalHits: number;          // 匹配查询条件总条数
   totalHitsRelation: string;
   maxScore: number;
@@ -63,4 +63,33 @@ export interface LawSearchResponse {
   aggregations: any;
   suggest: any;
   empty: boolean;               // 搜索结果是否为空
+}
+
+export interface LawNormalSearchResponse {
+  content: Law[];
+  pageable: {
+    sort: {
+      empty: boolean;
+      sorted: boolean;
+      unsorted: boolean;
+    }
+    offset: number;
+    pageNumber: number;
+    pageSize: number;
+    paged: boolean;
+    unpaged: boolean;
+  }
+  last: boolean;
+  totalPages: number;
+  totalElements: number;
+  first: boolean;
+  size: number;
+  number: number;
+  sort: {
+    empty: boolean;
+    sorted: boolean;
+    unsorted: boolean;
+  }
+  numberOfElements: number;
+  empty: boolean;
 }

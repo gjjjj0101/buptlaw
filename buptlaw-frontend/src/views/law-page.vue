@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import { onMounted, ref }                                             from "vue";
-import { getLawBySearch }                                             from "../services/law";
+import { getLawByLevel, getLawByMixedSearch }                         from "../services/law";
 import { Law, LawSearchBody }                                         from "../types/law";
 import { LAW_CLASS_TREE_SELECT_LIST, OFFICE_CLASS_TREE_SELECT_LIST }  from "../consts/law";
 import { getFormatDate, getFormatLawStatus, getFormatLawStatusColor } from "../utils/utils";
+import LawItem from "../components/law-item.vue";
 
 // 搜索查询的参数
 const lawSearchBody = ref<LawSearchBody>({
@@ -65,21 +66,31 @@ const searchResult = ref<(Law & {
 
 // 点击搜索按钮时，发送搜索请求
 const onSearch = () => {
-  getLawBySearch(lawSearchBody.value, 1, 10).then(res => {
+  getLawByMixedSearch(lawSearchBody.value, 1, 10).then(res => {
     searchResult.value = (res.searchHits).map(i => ({
       ...(i.content),
       formatPublishTime: i.content.publish ? getFormatDate(i.content.publish) : "未知",
       formatStatus: i.content.status ? getFormatLawStatus(i.content.status) : "未知",
     }))
-    console.log(res)
   })
 }
 
-// onMounted(() => {
-//   getLawBySearch(lawSearchBody.value, 1, 10).then(res => {
-//     console.log(res)
-//   })
-// })
+const lawList = ref<Law[][]>([])
+const lawTabNameList = ref<string[]>(['0100', '0200', '0300', '0400', '0500', '0600'])
+
+const handleLawListTabClick = (name: string) => {
+  getLawByLevel(name, 1, 4).then(res => {
+    lawList.value[Number(name[1]) - 1] = res.content
+  })
+}
+
+onMounted(() => {
+  for (let i = 1; i <= 6; i++) {
+    getLawByLevel(`0${i}00`, 1, 4).then(res => {
+      lawList.value[i - 1] = res.content
+    })
+  }
+})
 </script>
 
 <template>
@@ -171,21 +182,116 @@ const onSearch = () => {
 
     <div id="law-search-result-box" class="card" v-if="searchResult.length">
       <el-table :data="searchResult" stripe>
-        <el-table-column type="index" label="序号" width="80"/>
-        <el-table-column prop="title" label="标题" width="240"/>
-        <el-table-column prop="office" label="制定机关" width="360"/>
-        <el-table-column prop="level" label="法律性质" width="240"/>
-        <el-table-column prop="formatStatus" label="时效性" width="180">
+        <el-table-column type="index" label="序号" width="70"/>
+        <el-table-column prop="title" label="标题" width="220"/>
+        <el-table-column prop="office" label="制定机关" width="320"/>
+        <el-table-column prop="level" label="法律性质" width="220"/>
+        <el-table-column prop="formatStatus" label="时效性">
           <template #default="scope">
             <el-tag :color="getFormatLawStatusColor(scope.row.status)" style="color: #ffffff; border: none">
               {{ scope.row.formatStatus }}
             </el-tag>
           </template>
         </el-table-column>
-        <el-table-column prop="formatPublishTime" label="发布日期"/>
+        <el-table-column prop="formatPublishTime" label="发布日期" width="180"/>
       </el-table>
     </div>
 
+    <div id="law-list-box">
+      <el-row justify="space-between">
+        <el-col :span="11">
+          <el-tabs class="card law-card" type="border-card" v-model="lawTabNameList[0]" @tab-change="handleLawListTabClick">
+            <el-tab-pane label="宪法" name="0100">
+              <div v-for="i in lawList[0]">
+                <law-item :law="i"/>
+              </div>
+            </el-tab-pane>
+          </el-tabs>
+
+          <el-tabs class="card law-card" type="border-card" v-model="lawTabNameList[2]" @tab-change="handleLawListTabClick">
+            <el-tab-pane label="行政法规" name="0300">
+              <div v-for="i in lawList[2]">
+                <law-item :law="i"/>
+              </div>
+            </el-tab-pane>
+          </el-tabs>
+
+          <el-tabs class="card law-card" type="border-card" v-model="lawTabNameList[4]" @tab-change="handleLawListTabClick">
+            <el-tab-pane label="地方性法规" name="0500">
+              <div v-for="i in lawList[4]">
+                <law-item :law="i"/>
+              </div>
+            </el-tab-pane>
+            <el-tab-pane label="修改、废止的决定" name="0510">
+              <div v-for="i in lawList[4]">
+                <law-item :law="i"/>
+              </div>
+            </el-tab-pane>
+          </el-tabs>
+        </el-col>
+
+        <el-col :span="11">
+          <el-tabs class="card law-card" type="border-card" v-model="lawTabNameList[1]" @tab-change="handleLawListTabClick">
+            <el-tab-pane label="法律" name="0200">
+              <div v-for="i in lawList[1]">
+                <law-item :law="i"/>
+              </div>
+            </el-tab-pane>
+            <el-tab-pane label="法律解释" name="0209">
+              <div v-for="i in lawList[1]">
+                <law-item :law="i"/>
+              </div>
+            </el-tab-pane>
+            <el-tab-pane label="有关法律问题和重大问题的决定（部分）" name="0210">
+              <div v-for="i in lawList[1]">
+                <law-item :law="i"/>
+              </div>
+            </el-tab-pane>
+            <el-tab-pane label="修改、废止的决定" name="0211">
+              <div v-for="i in lawList[1]">
+                <law-item :law="i"/>
+              </div>
+            </el-tab-pane>
+          </el-tabs>
+
+          <el-tabs class="card law-card" type="border-card" v-model="lawTabNameList[3]" @tab-change="handleLawListTabClick">
+            <el-tab-pane label="监察法规" name="0400">
+              <div v-for="i in lawList[3]">
+                <law-item :law="i"/>
+              </div>
+            </el-tab-pane>
+          </el-tabs>
+
+          <el-tabs class="card law-card" type="border-card" v-model="lawTabNameList[5]" @tab-change="handleLawListTabClick">
+            <el-tab-pane label="司法解释" name="0600">
+              <div v-for="i in lawList[5]">
+                <law-item :law="i"/>
+              </div>
+            </el-tab-pane>
+            <el-tab-pane label="高检司法解释" name="0601">
+              <div v-for="i in lawList[5]">
+                <law-item :law="i"/>
+              </div>
+            </el-tab-pane>
+            <el-tab-pane label="高法司法解释" name="0602">
+              <div v-for="i in lawList[5]">
+                <law-item :law="i"/>
+              </div>
+            </el-tab-pane>
+            <el-tab-pane label="联合发布司法解释" name="0603">
+              <div v-for="i in lawList[5]">
+                <law-item :law="i"/>
+              </div>
+            </el-tab-pane>
+            <el-tab-pane label="修改、废止的决定" name="0604">
+              <div v-for="i in lawList[5]">
+                <law-item :law="i"/>
+              </div>
+            </el-tab-pane>
+          </el-tabs>
+        </el-col>
+      </el-row>
+    </div>
   </div>
 </template>
 
@@ -197,7 +303,7 @@ export default {
 
 <style scoped>
 #law {
-  padding: 0 240px;
+  padding: 0 360px;
 }
 
 #law-search-box {
@@ -242,6 +348,7 @@ export default {
 
 #law-search-configuration-button {
   width: 120px !important;
+  min-width: 120px !important;
   height: 64px;
   border-radius: 0 12px 12px 0;
   border: 1px solid #ebebeb;
@@ -289,5 +396,15 @@ export default {
   margin-top: 36px;
   box-sizing: border-box;
   font-size: 14px;
+}
+
+#law-list-box {
+
+}
+
+.law-card {
+  padding: 0;
+  width: 100%;
+  margin-top: 36px;
 }
 </style>
