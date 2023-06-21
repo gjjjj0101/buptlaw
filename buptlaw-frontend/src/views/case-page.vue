@@ -22,7 +22,7 @@ onMounted(() => {
 <template>
   <el-container>
     <el-aside width="240px">
-      <el-menu :default-active="menuDefaultActive" style="min-height: calc(100vh - 84px)">
+      <el-menu :default-active="menuDefaultActive" style="min-height: calc(100vh - 84px); height: 100%">
         <el-menu-item index="1" @click="routerDirect('case-analysis')" style="font-size: 16px">
           <font-awesome-icon icon="magnifying-glass-chart"/>
           <span style="margin-left: 8px">案情分析列表</span>

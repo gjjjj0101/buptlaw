@@ -19,3 +19,18 @@ export const getCaseList = (page?: number, size?: number) => {
     + (page !== undefined ? `?page=${page}` : '')
     + (size !== undefined ? `&size=${size}` : ''))
 }
+
+// 获取各种案由的案例数量
+export const getCaseReasonNums = () => {
+  return request.get<{ caseReason: string, num: number }[]>(BACKEND_URL + '/internal/cases/reason/nums')
+}
+
+// 获取各种案件类型的案件数量
+export const getCaseTypeNums = () => {
+  return request.get<{ caseType: string, num: number }[]>(BACKEND_URL + '/internal/cases/type/nums')
+}
+
+// 获取各种案件状态的数量
+export const getCaseStatusNums = () => {
+  return request.get<{ status: string, num: number }[]>(BACKEND_URL + '/internal/cases/status/nums')
+}
