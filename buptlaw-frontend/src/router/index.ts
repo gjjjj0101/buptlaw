@@ -55,11 +55,6 @@ const routes = [
             name: 'case-analysis',
             component: () => import('../views/case-analysis-page.vue'),
           },
-          {
-            path: '/main/case/chat',
-            name: 'case-chat',
-            component: () => import('../views/case-chat-page.vue'),
-          }
         ]
       },
     ]

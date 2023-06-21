@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import NavigatorBar       from "../components/navigator-bar.vue";
+import NavigatorBar from "../components/navigator-bar.vue";
+import AiChat       from "../components/ai-chat.vue";
 
 </script>
 
@@ -10,6 +11,7 @@ import NavigatorBar       from "../components/navigator-bar.vue";
     </el-header>
     <el-main style="padding: 0; min-height: calc(100vh - 84px); background: #F9F9F9">
       <router-view/>
+      <ai-chat/>
     </el-main>
     <!--    <el-footer style="background: red">Footer</el-footer>-->
   </el-container>

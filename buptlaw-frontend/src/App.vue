@@ -16,8 +16,8 @@
   font-family: "PingFang SC", "Microsoft Yahei", "Helvetica Neue", Helvetica, "Segoe UI", Arial, sans-serif;
   overflow-x: hidden;
 
-  --theme-color: #409eff;
-  --theme-active-color: #66b1ff;
+  --theme-color: #1282fd;
+  --theme-active-color: #88c1ff;
 
   --text-color: #333333;
   --text-gray-color: #444444;

@@ -13,8 +13,6 @@ onMounted(() => {
   const currentRoute = router.currentRoute.value.name
   if (currentRoute === 'case-analysis') {
     menuDefaultActive.value = '1'
-  } else if (currentRoute === 'case-chat') {
-    menuDefaultActive.value = '2'
   }
 })
 </script>
@@ -26,10 +24,6 @@ onMounted(() => {
         <el-menu-item index="1" @click="routerDirect('case-analysis')" style="font-size: 16px">
           <font-awesome-icon icon="magnifying-glass-chart"/>
           <span style="margin-left: 8px">案情分析列表</span>
-        </el-menu-item>
-        <el-menu-item index="2" @click="routerDirect('case-chat')" style="font-size: 16px">
-          <font-awesome-icon icon="comment" />
-          <span style="margin-left: 8px">AI问答</span>
         </el-menu-item>
       </el-menu>
     </el-aside>

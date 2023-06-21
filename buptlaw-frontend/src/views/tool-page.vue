@@ -66,7 +66,7 @@ const caseToolItems: ToolItem[] = [
 
 <template>
   <div id="tools-main">
-    <div class="card" style="width: 360px; ">
+    <div class="card" style="width: 420px; ">
       <div class="card-title">法律法规相关</div>
 
       <el-row class="tools-box">
@@ -83,7 +83,7 @@ const caseToolItems: ToolItem[] = [
       </el-row>
     </div>
 
-    <div class="card" style="width: 360px; margin-left: 48px">
+    <div class="card" style="width: 420px; margin-left: 48px">
       <div class="card-title">案件相关</div>
 
       <el-row class="tools-box">
@@ -125,7 +125,7 @@ export default {
 }
 
 .tool-item {
-  width: 84px;
+  /*width: 120px;*/
   margin: 12px 0;
   color: var(--text-color);
   user-select: none;
