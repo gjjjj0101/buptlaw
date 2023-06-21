@@ -47,7 +47,20 @@ const routes = [
       {
         path: '/main/case',
         name: 'case',
+        redirect: '/main/case/analysis',
         component: () => import('../views/case-page.vue'),
+        children: [
+          {
+            path: '/main/case/analysis',
+            name: 'case-analysis',
+            component: () => import('../views/case-analysis-page.vue'),
+          },
+          {
+            path: '/main/case/chat',
+            name: 'case-chat',
+            component: () => import('../views/case-chat-page.vue'),
+          }
+        ]
       },
     ]
   },

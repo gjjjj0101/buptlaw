@@ -32,5 +32,6 @@
   display: inline-block;
   flex-direction: column;
   padding: 24px;
+  box-sizing: border-box;
 }
 </style>

@@ -23,6 +23,7 @@ export default {
   align-items: center;
 
   padding: 0 0 0 240px;
+  border-bottom: 1px solid rgb(220, 223, 230);
 }
 
 #navigator-bar-logo {
