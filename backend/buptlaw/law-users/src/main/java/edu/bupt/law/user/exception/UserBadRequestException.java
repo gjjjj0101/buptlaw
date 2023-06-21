@@ -1,4 +1,4 @@
-package edu.bupt.law.security.exception;
+package edu.bupt.law.user.exception;
 
 import edu.bupt.law.common.exception.badrequest.BadRequestException;
 

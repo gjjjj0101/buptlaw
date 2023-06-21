@@ -14,8 +14,7 @@ public class ExceptionResponseBody {
 
     private final LocalDateTime timestamp = LocalDateTime.now();
 
-    private Integer message;
-
-    private String url;
+    private Integer code;
+    private String message;
 
 }

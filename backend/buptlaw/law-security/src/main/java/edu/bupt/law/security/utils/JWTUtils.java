@@ -66,7 +66,6 @@ public class JWTUtils {
             return new UsernamePasswordAuthenticationToken(principal, token, authorities);
 
         } catch (NumberFormatException e) {
-            System.out.println(e.getMessage());
             return null;
         }
     }

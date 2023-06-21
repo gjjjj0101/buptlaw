@@ -1,6 +1,8 @@
 package edu.bupt.law.user.config;
 
+import edu.bupt.law.security.exception.handler.RestAuthenticationEntryPoint;
 import edu.bupt.law.security.filter.JWTFilter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -34,10 +36,12 @@ public class SecurityConfig {
                 .sessionManagement(c ->
                         c.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .exceptionHandling()
+                .authenticationEntryPoint(new RestAuthenticationEntryPoint())
                 .and()
                 .authorizeRequests(c -> c
-
-                        .anyRequest().permitAll()
+                        .antMatchers("/auth/login").permitAll()
+                        .antMatchers("/auth/register").permitAll()
+                        .anyRequest().hasAnyRole("USER")
                 )
                 .addFilterBefore(
                         new JWTFilter(),
