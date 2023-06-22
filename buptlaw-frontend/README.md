@@ -1,18 +1,23 @@
-# Vue 3 + TypeScript + Vite
+# 律所
 
-This template should help get you started developing with Vue 3 and TypeScript in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+## 前言
 
-## Recommended IDE Setup
+在接手这个项目的前端开发前，你需要
 
-- [VS Code](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+1. 对 HTML 、JavaScript 、CSS 有一定了解
+2. 对 Vue3 及其生命周期有一定了解
+3. 对 vue-router 、vuex 有一定了解
+4. 熟悉 Element-Plus 组件库
 
-## Type Support For `.vue` Imports in TS
+同时你还需要理解本项目的结构
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin) to make the TypeScript language service aware of `.vue` types.
+> - src （仅解释 src 文件夹中的重要内容）
+>   - components（存放项目的 Vue 组件，但非页面组件）
+>   - consts（存放常量）
+>   - router（定义 router ，详细解释可学习 vue-router ）
+>   - services（封装与后端的请求服务）
+>   - store（定义 store ，详细解释可学习 vuex ）
+>   - types（定义数据类型）
+>   - utils（存放不与后端交互的一些基本通用方法）
+>   - views（存放页面视图相关的 vue 组件，与 <router-view/>相关）
 
-If the standalone TypeScript plugin doesn't feel fast enough to you, Volar has also implemented a [Take Over Mode](https://github.com/johnsoncodehk/volar/discussions/471#discussioncomment-1361669) that is more performant. You can enable it by the following steps:
-
-1. Disable the built-in TypeScript Extension
-   1. Run `Extensions: Show Built-in Extensions` from VSCode's command palette
-   2. Find `TypeScript and JavaScript Language Features`, right click and select `Disable (Workspace)`
-2. Reload the VSCode window by running `Developer: Reload Window` from the command palette.
