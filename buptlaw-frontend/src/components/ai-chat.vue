@@ -120,6 +120,7 @@ export default {
   position: absolute;
   top: 120px;
   right: 24px;
+  z-index: 9;
 }
 
 #ai-chat-button {
@@ -161,6 +162,8 @@ export default {
   padding: 8px 24px;
   border-radius: 24px;
   background: #ffffff;
+  box-shadow: var(--shadow-color) 0 8px 24px;
+  border: 1px solid #ebebeb;
   overflow-y: auto;
 
   visibility: collapse;

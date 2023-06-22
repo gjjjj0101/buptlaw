@@ -34,4 +34,10 @@
   padding: 24px;
   box-sizing: border-box;
 }
+
+.card-title {
+  font-size: 20px;
+  font-weight: bold;
+  color: var(--text-color);
+}
 </style>

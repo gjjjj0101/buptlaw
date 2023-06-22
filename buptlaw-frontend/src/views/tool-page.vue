@@ -62,6 +62,16 @@ const caseToolItems: ToolItem[] = [
     fallback: notOpenNotification,
   }
 ]
+
+const workToolItems: ToolItem[] = [
+  {
+    icon: 'briefcase',
+    name: '工作记录',
+    isLink: true,
+    pathName: 'work',
+    background: 'linear-gradient(150deg, #232526, #414345)',
+  },
+]
 </script>
 
 <template>
@@ -99,6 +109,23 @@ const caseToolItems: ToolItem[] = [
         </el-col>
       </el-row>
     </div>
+
+    <div class="card" style="width: 420px; margin-left: 48px">
+      <div class="card-title">工作相关</div>
+
+      <el-row class="tools-box">
+        <el-col :span="6" v-for="i in workToolItems" style="display: flex; justify-content: center">
+          <div class="tool-item" @click="i.fallback">
+            <div class="tool-item-icon" :style="'background: ' + i.background">
+              <font-awesome-icon :icon="i.icon"/>
+            </div>
+            <div class="tool-item-text">{{ i.name }}</div>
+
+            <router-link v-if="i.isLink" :to="{ name: i.pathName }" class="tool-item-link"/>
+          </div>
+        </el-col>
+      </el-row>
+    </div>
   </div>
 </template>
 
@@ -111,12 +138,6 @@ export default {
 <style scoped>
 #tools-main {
   padding: 48px 240px;
-}
-
-.card-title {
-  font-size: 20px;
-  font-weight: bold;
-  color: var(--text-color);
 }
 
 .tools-box {

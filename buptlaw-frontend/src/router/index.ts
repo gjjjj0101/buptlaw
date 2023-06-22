@@ -57,6 +57,16 @@ const routes = [
           },
         ]
       },
+      {
+        path: '/main/work',
+        name: 'work',
+        component: () => import('../views/work-page.vue'),
+      },
+      {
+        path: '/main/record',
+        name: 'record',
+        component: () => import('../views/work-record-page.vue'),
+      }
     ]
   },
 ]

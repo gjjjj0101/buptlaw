@@ -25,7 +25,7 @@ export const getFormatTime = (timestamp: number) => {
   // 如果是10位的时间戳，转换为13位
   if (timestamp.toString().length === 10) timestamp *= 1000;
   const date = new Date(timestamp);
-  return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
+  return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds() < 10 ? '0' + date.getSeconds() : date.getSeconds()}`;
 }
 
 // 传入法律状态，返回对应的文字
