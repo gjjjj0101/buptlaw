@@ -12,6 +12,13 @@ import ElementPlus from 'element-plus'
 import zhCn        from 'element-plus/dist/locale/zh-cn.mjs'
 import 'element-plus/dist/index.css'
 
+import VueMarkdownEditor from '@kangc/v-md-editor';
+import '@kangc/v-md-editor/lib/style/base-editor.css';
+import vuepressTheme from '@kangc/v-md-editor/lib/theme/vuepress.js';
+import '@kangc/v-md-editor/lib/theme/style/vuepress.css';
+
+VueMarkdownEditor.use(vuepressTheme);
+
 import App        from './App.vue'
 import { router } from './router'
 import { store }  from './store'
@@ -24,5 +31,6 @@ app.use(ElementPlus, {
 })
 app.use(router)
 app.use(store)
+app.use(VueMarkdownEditor);
 app.component('font-awesome-icon', FontAwesomeIcon)
 app.mount('#app')

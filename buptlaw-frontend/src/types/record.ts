@@ -23,6 +23,13 @@ export interface Record {
   deleteDateTime: number;   // 删除时间
 }
 
+export interface RecordRequest {
+  title: string,
+  description: string,
+  content: string,
+  type: string,
+}
+
 export interface RecordResponse {
   content: Record[];
 }
