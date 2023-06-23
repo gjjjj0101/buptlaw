@@ -1,6 +1,23 @@
 version: '3'
 
 services:
+  backend:
+    build: 
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: buptlaw-backend
+    restart: always
+    ports:
+      - "8080:8080"
+      - "8081:8081"
+    depends_on:
+      - db
+      - elasticsearch
+    env_file:
+      - .env
+    networks:
+      - buptlaw-network
+    entrypoint: ["./backend/start-up.sh"]
   db:
     image: mysql:8.0.3
     container_name: buptlaw-mysql
