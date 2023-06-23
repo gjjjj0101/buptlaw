@@ -30,7 +30,9 @@ services:
     container_name: buptlaw-elasticsearch
     environment:
       discovery.type: single-node
-      ES_JAVA_OPTS: "-Xms512m -Xmx512m"
+      ES_JAVA_OPTS: "-Xms1024m -Xmx1024m"
+    volumes:
+      - ./esdata:/usr/share/elasticsearch/data
     ports:
       - "9200:9200"
       - "9300:9300"
@@ -41,16 +43,15 @@ services:
       retries: 3
     networks:
       - buptlaw-network
-
   logstash:
     image: logstash:7.16.1
     container_name: buptlaw-logstash
     environment:
-      discovery.seed_hosts: logstash
+      discovery.seed_hosts: buptlaw-logstash
       LS_JAVA_OPTS: "-Xms512m -Xmx512m"
     volumes:
-      - ./logstash:/usr/share/logstash
-
+      - ./logstash/pipeline/logstash-nginx.config:/usr/share/logstash/pipeline/logstash-nginx.config
+      - ./logstash/nginx.log:/home/nginx.log
     ports:
       - "5000:5000/tcp"
       - "5000:5000/udp"
@@ -61,7 +62,6 @@ services:
     networks:
       - buptlaw-network
     command: logstash -f /usr/share/logstash/pipeline/logstash-nginx.config
-  
   kibana:
     image: kibana:7.16.1
     container_name: buptlaw-kibana
