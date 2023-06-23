@@ -8,15 +8,15 @@ import org.springframework.security.core.parameters.P;
 
 public interface HistoryService {
 
-    Page<RecordHistory> getRecordsHistoryByPage(Long userId, Pageable pageable);
+    Page<RecordHistory> getRecordsHistoryByPage(String username, Pageable pageable);
 
-    Page<RegulationHistory> getRegulationsHistoryByPage(Long userId, Pageable pageable);
+    Page<RegulationHistory> getRegulationsHistoryByPage(String username, Pageable pageable);
 
-    Page<RegulationHistory> getRegulationsHistoryByPageAndAction(Long userId, String action, Pageable pageable);
+    Page<RegulationHistory> getRegulationsHistoryByPageAndAction(String username, String action, Pageable pageable);
 
-    Page<RecordHistory> getRecordsHistoryByPageAndAction(Long userId, String action, Pageable pageable);
+    Page<RecordHistory> getRecordsHistoryByPageAndAction(String username, String action, Pageable pageable);
 
-    void addRecordHistory(Long userId, Long recordId, String action);
+    RecordHistory addRecordHistory(String username, Long recordId, String action);
 
-    void addRegulationHistory(Long userId, String regulationId, String title, String action);
+    RegulationHistory addRegulationHistory(String username, String regulationId, String title, String action);
 }

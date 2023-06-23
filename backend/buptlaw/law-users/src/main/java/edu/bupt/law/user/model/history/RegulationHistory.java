@@ -21,7 +21,7 @@ public class RegulationHistory {
     @ManyToOne
     private User user;
 
-    private String recordId;
+    private String regulationId;
 
     private String title;
 

@@ -2,6 +2,7 @@ package edu.bupt.law.user.model;
 
 import lombok.Data;
 import lombok.experimental.Accessors;
+import org.springframework.data.annotation.Reference;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -19,6 +20,7 @@ public class Record {
     private Long id;
 
     @ManyToOne
+
     private User user;
 
     private String title;
