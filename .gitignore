@@ -48,4 +48,4 @@ build/esdata
 
 venv
 assets
-.env 
+*.env 
