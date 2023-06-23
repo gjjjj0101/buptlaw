@@ -19,5 +19,5 @@
 >   - store（定义 store ，详细解释可学习 vuex ）
 >   - types（定义数据类型）
 >   - utils（存放不与后端交互的一些基本通用方法）
->   - views（存放页面视图相关的 vue 组件，与 <router-view/>相关）
+>   - views（存放页面视图相关的 vue 组件，与 <router-view\/> 标签相关）
 
