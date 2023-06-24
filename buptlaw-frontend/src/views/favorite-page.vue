@@ -31,7 +31,8 @@ getFavoriteList()
 <template>
   <div id="favorite">
     <div id="favorite-list" class="card">
-      <el-table :data="favoriteList" style="width: 100%">
+      <div class="card-title">法律法规收藏列表</div>
+      <el-table :data="favoriteList" style="width: 100%; margin-top: 16px">
         <el-table-column prop="title" label="法律法规标题" width="180"/>
         <el-table-column prop="formatAction" label="操作" width="80"/>
         <el-table-column prop="formatCreateTime" label="操作时间" width="180"/>

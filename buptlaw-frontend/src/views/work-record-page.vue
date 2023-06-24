@@ -2,8 +2,10 @@
 import { onMounted, ref }                                                           from "vue";
 import { addSingleRecord, deleteSingleRecord, getSingleRecord, updateSingleRecord } from "../services/record";
 import { Record, RecordRequest }                                                    from "../types/record";
-import { ElNotification }                                       from "element-plus";
-import { router }                                               from "../router/index";
+import { ElNotification }                                                           from "element-plus";
+import { router }                                                                   from "../router/index";
+import { postUserRecordHistory }                                                    from "../services/history";
+import { RecordAction }                                                             from "../consts/action";
 
 const props = defineProps<{
   recordId: number
@@ -17,15 +19,18 @@ const record = ref<Record>({
 } as Record)
 
 // 上传记录
-const uploadRecord = async () => {
+const uploadRecord = () => {
   // 如果 recordId 不为 0，说明是编辑记录
   if (props.recordId != 0) {
-    await updateSingleRecord(record.value.recordId, {
+    updateSingleRecord(record.value.recordId, {
       title: record.value.title,
       description: record.value.description,
       content: record.value.content,
       type: record.value.type
     })
+
+    // 添加更新历史
+    postUserRecordHistory(props.recordId, RecordAction.UPDATE)
 
     ElNotification({
       title: '编辑成功',
@@ -44,6 +49,9 @@ const uploadRecord = async () => {
       message: '记录上传成功',
       type: 'success',
     })
+
+    // 添加创建历史
+    postUserRecordHistory(props.recordId, RecordAction.CREATE)
 
     // 返回上一个页面
     router.back()
@@ -64,6 +72,9 @@ const deleteRecord = () => {
       message: '记录删除成功',
       type: 'success',
     })
+
+    // 添加删除历史
+    postUserRecordHistory(props.recordId, RecordAction.DELETE)
 
     // 返回上一个页面
     router.back()

@@ -5,6 +5,7 @@ import { getLawById }                                                 from "../s
 import { getFormatLawStatus, getFormatLawStatusColor, getFormatDate } from "../utils/utils";
 import { postLawRecordHistory }                                       from "../services/history";
 import { ElNotification }                                             from "element-plus";
+import { LawAction }                                                  from "../consts/action";
 
 const props = defineProps<{ id: string }>()
 const law   = ref<Law>({
@@ -30,7 +31,7 @@ getLawById(props.id).then(res => {
 
 // 收藏法律法规
 const favoriteLaw = () => {
-  postLawRecordHistory(law.value.id, law.value.title, '02').then(res => {
+  postLawRecordHistory(law.value.id, law.value.title, LawAction.COLLECT).then(res => {
     ElNotification({
       title: '收藏成功',
       type: 'success',
