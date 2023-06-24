@@ -1,20 +1,44 @@
 <script setup lang="ts">
-import { ref }            from "vue";
-import { addRecord }      from "../services/record";
-import { RecordRequest }  from "../types/record";
-import { ElNotification } from "element-plus";
-import { router }         from "../router/index";
+import { onMounted, ref }                                                           from "vue";
+import { addSingleRecord, deleteSingleRecord, getSingleRecord, updateSingleRecord } from "../services/record";
+import { Record, RecordRequest }                                                    from "../types/record";
+import { ElNotification }                                       from "element-plus";
+import { router }                                               from "../router/index";
 
-const record = ref<RecordRequest>({
+const props = defineProps<{
+  recordId: number
+}>()
+
+const record = ref<Record>({
   title: '',
   description: '',
   content: '',
   type: '',
-})
+} as Record)
 
 // 上传记录
-const uploadRecord = () => {
-  addRecord(record.value).then(() => {
+const uploadRecord = async () => {
+  // 如果 recordId 不为 0，说明是编辑记录
+  if (props.recordId != 0) {
+    await updateSingleRecord(record.value.recordId, {
+      title: record.value.title,
+      description: record.value.description,
+      content: record.value.content,
+      type: record.value.type
+    })
+
+    ElNotification({
+      title: '编辑成功',
+      message: '记录编辑成功',
+      type: 'success',
+    })
+
+    router.back()
+    return
+  }
+
+  // 否则是添加记录
+  addSingleRecord(record.value as RecordRequest).then(() => {
     ElNotification({
       title: '上传成功',
       message: '记录上传成功',
@@ -31,6 +55,34 @@ const uploadRecord = () => {
     })
   })
 }
+
+// 删除记录
+const deleteRecord = () => {
+  deleteSingleRecord(props.recordId).then(() => {
+    ElNotification({
+      title: '删除成功',
+      message: '记录删除成功',
+      type: 'success',
+    })
+
+    // 返回上一个页面
+    router.back()
+  }).catch(() => {
+    ElNotification({
+      title: '删除失败',
+      message: '记录删除失败',
+      type: 'error',
+    })
+  })
+}
+
+onMounted(() => {
+  if (props.recordId != 0) {
+    getSingleRecord(props.recordId).then(res => {
+      record.value = res
+    })
+  }
+})
 </script>
 
 <template>
@@ -58,7 +110,12 @@ const uploadRecord = () => {
         </el-col>
       </el-row>
 
-      <el-button type="primary" @click="uploadRecord" style="margin-left: 110px">上传记录</el-button>
+      <el-popconfirm title="确定删除这条记录？" @confirm="deleteRecord" v-if="props.recordId != 0">
+        <template #reference>
+          <el-button type="danger" style="float: right; margin: 0 24px">删除记录</el-button>
+        </template>
+      </el-popconfirm>
+      <el-button type="primary" @click="uploadRecord" style="float: right">{{ props.recordId == 0 ? '上传记录' : '保存记录' }}</el-button>
     </div>
 
     <div class="card" style="width: 100%; padding: 0; margin-top: 32px">
