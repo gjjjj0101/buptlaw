@@ -51,6 +51,22 @@ export function post<T>(url: string, data?: any) {
   })
 }
 
+export function put<T>(url: string, data?: any) {
+  return new Promise<T>((resolve, reject) => {
+    axios.put<T>(url, data)
+      .then(res => resolve(res.data))
+      .catch(reject)
+  })
+}
+
+export function del<T>(url: string) {
+  return new Promise<T>((resolve, reject) => {
+    axios.delete<T>(url)
+      .then(res => resolve(res.data))
+      .catch(reject)
+  })
+}
+
 export default {
-  get, post
+  get, post, put, del
 }

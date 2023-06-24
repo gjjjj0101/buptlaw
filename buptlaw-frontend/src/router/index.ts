@@ -63,9 +63,10 @@ const routes = [
         component: () => import('../views/work-page.vue'),
       },
       {
-        path: '/main/record',
+        path: '/main/record/:recordId',
         name: 'record',
         component: () => import('../views/work-record-page.vue'),
+        props: true,
       }
     ]
   },
