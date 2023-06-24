@@ -32,9 +32,9 @@ const onLogin = () => {
   login({username: username.value, password: password.value})
       .then(res => {
         store.commit('setState', res)
-        localStorage.setItem('token', res.token)
+        localStorage.setItem('token', 'Bearer ' + res.token)
         localStorage.setItem('username', res.username)
-        axios.defaults.headers.common['Authorization'] = res.token
+        axios.defaults.headers.common['Authorization'] = 'Bearer ' + res.token
 
         ElNotification({
           title: '登录成功',
