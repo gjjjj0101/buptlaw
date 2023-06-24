@@ -67,6 +67,16 @@ const routes = [
         name: 'record',
         component: () => import('../views/work-record-page.vue'),
         props: true,
+      },
+      {
+        path: '/main/history',
+        name: 'history',
+        component: () => import('../views/history-page.vue'),
+      },
+      {
+        path: '/main/favorite',
+        name: 'favorite',
+        component: () => import('../views/favorite-page.vue'),
       }
     ]
   },

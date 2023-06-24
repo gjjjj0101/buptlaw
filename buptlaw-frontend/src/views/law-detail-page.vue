@@ -1,8 +1,10 @@
 <script setup lang="ts">
-import { Law }            from "../types/law";
-import { ref } from "vue";
-import { getLawById }     from "../services/law";
+import { Law }                                                        from "../types/law";
+import { ref }                                                        from "vue";
+import { getLawById }                                                 from "../services/law";
 import { getFormatLawStatus, getFormatLawStatusColor, getFormatDate } from "../utils/utils";
+import { postLawRecordHistory }                                       from "../services/history";
+import { ElNotification }                                             from "element-plus";
 
 const props = defineProps<{ id: string }>()
 const law   = ref<Law>({
@@ -26,6 +28,15 @@ getLawById(props.id).then(res => {
   law.value = res
 })
 
+// 收藏法律法规
+const favoriteLaw = () => {
+  postLawRecordHistory(law.value.id, law.value.title, '02').then(res => {
+    ElNotification({
+      title: '收藏成功',
+      type: 'success',
+    })
+  })
+}
 </script>
 
 <template>
@@ -42,6 +53,8 @@ getLawById(props.id).then(res => {
           </el-tag>
         </el-descriptions-item>
       </el-descriptions>
+
+      <el-button type="primary" style="margin-top: 24px" plain @click="favoriteLaw">添加至收藏</el-button>
     </div>
 
     <div id="law-detail-content-box" class="card">

@@ -28,6 +28,13 @@ const lawToolItems: ToolItem[] = [
     background: 'linear-gradient(150deg, #F37335, #FDC830)',
   },
   {
+    icon: 'star',
+    name: '法律收藏',
+    isLink: true,
+    pathName: 'favorite',
+    background: 'linear-gradient(150deg, #3f51b1, #5a55ae)',
+  },
+  {
     icon: 'file-invoice',
     name: '刑审智库',
     background: 'linear-gradient(150deg, #3a41ce, #1488CC)',
@@ -71,6 +78,13 @@ const workToolItems: ToolItem[] = [
     pathName: 'work',
     background: 'linear-gradient(150deg, #232526, #414345)',
   },
+  {
+    icon: 'clock-rotate-left',
+    name: '操作历史',
+    isLink: true,
+    pathName: 'history',
+    background: 'linear-gradient(150deg, #1e3c72, #2a5298)',
+  }
 ]
 </script>
 
@@ -138,6 +152,9 @@ export default {
 <style scoped>
 #tools-main {
   padding: 48px 240px;
+  display: flex;
+  align-items: flex-start;
+  flex-wrap: wrap;
 }
 
 .tools-box {
