@@ -11,4 +11,6 @@ public class AddRecordRequest {
 
     String content;
 
+    String type;
+
 }

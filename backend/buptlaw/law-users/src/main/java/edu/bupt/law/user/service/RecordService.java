@@ -11,9 +11,9 @@ public interface RecordService {
 
     Record getRecordById(Long id);
 
-    Record addRecord(Record record);
+    Record addRecord(String title, String description, String content, String type, String username);
 
-    Record updateRecord(Record record);
+    Record updateRecord(Long id, String title, String description, String content, String type, String username);
 
     Boolean deleteRecord(Long id);
 

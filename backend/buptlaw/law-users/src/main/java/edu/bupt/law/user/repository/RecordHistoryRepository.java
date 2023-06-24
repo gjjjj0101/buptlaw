@@ -11,7 +11,5 @@ import java.util.List;
 public interface RecordHistoryRepository extends JpaRepository<RecordHistory, Long> {
     Page<RecordHistory> findRecordHistoriesByUser(User user, Pageable pageable);
 
-    Page<RecordHistory> findRecordHistoriesByUserAndType(User user, String type, Pageable pageable);
-
     Page<RecordHistory> findRecordHistoriesByUserAndAction(User user, String action, Pageable pageable);
 }

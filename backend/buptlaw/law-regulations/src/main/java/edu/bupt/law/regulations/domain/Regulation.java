@@ -4,10 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.elasticsearch.annotations.DateFormat;
-import org.springframework.data.elasticsearch.annotations.Document;
-import org.springframework.data.elasticsearch.annotations.Field;
-import org.springframework.data.elasticsearch.annotations.FieldType;
+import org.springframework.data.elasticsearch.annotations.*;
 
 import java.util.Date;
 import java.util.List;
@@ -24,10 +21,14 @@ public class Regulation {
     @Field(type = FieldType.Keyword)
     private String pkey;
 
-    @Field(type = FieldType.Text, analyzer = "ik_max_word")
+    @MultiField(mainField = @Field(type = FieldType.Text, analyzer = "ik_max_word"), otherFields = {
+            @InnerField(suffix = "keyword", type = FieldType.Keyword)
+    })
     private String title;
 
-    @Field(type = FieldType.Text, analyzer = "ik_max_word")
+    @MultiField(mainField = @Field(type = FieldType.Text, analyzer = "ik_max_word"), otherFields = {
+            @InnerField(suffix = "keyword", type = FieldType.Keyword)
+    })
     private String html;
 
     @Field(type = FieldType.Keyword)

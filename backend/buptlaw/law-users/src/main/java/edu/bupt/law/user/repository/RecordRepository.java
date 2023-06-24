@@ -7,6 +7,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface RecordRepository extends JpaRepository<Record, Long> {
-    Page<Record> getRecordsByUser(User user, Pageable pageable);
+    Page<Record> getRecordsByUserAndStatus(User user, Integer status,Pageable pageable);
 
 }

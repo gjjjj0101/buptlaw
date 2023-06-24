@@ -27,5 +27,5 @@ public class RegulationHistory {
 
     private String action;
 
-    private LocalDateTime timestamp;
+    private LocalDateTime createTime;
 }

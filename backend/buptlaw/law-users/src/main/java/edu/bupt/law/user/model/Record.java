@@ -1,5 +1,6 @@
 package edu.bupt.law.user.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import lombok.experimental.Accessors;
 import org.springframework.data.annotation.Reference;
@@ -35,8 +36,6 @@ public class Record {
     private Integer status;
 
     private LocalDateTime createDateTime;
-
     private LocalDateTime updateDateTime;
-
     private LocalDateTime deleteDateTime;
 }

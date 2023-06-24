@@ -63,7 +63,7 @@ public class HistoryServiceImpl implements HistoryService {
             return null;
         }
         RecordHistory recordHistory = new RecordHistory();
-        recordHistory.setUser(user).setRecord(record).setAction(action).setTimestamp(LocalDateTime.now());
+        recordHistory.setUser(user).setRecord(record).setAction(action).setCreateTime(LocalDateTime.now());
         return recordHistoryRepository.save(recordHistory);
     }
 
@@ -71,7 +71,7 @@ public class HistoryServiceImpl implements HistoryService {
     public RegulationHistory addRegulationHistory(String username, String regulationId, String title, String action) {
         User user = userRepository.findByUsername(username);
         RegulationHistory regulationHistory = new RegulationHistory();
-        regulationHistory.setAction(action).setTimestamp(LocalDateTime.now()).setUser(user).setRegulationId(regulationId).setTitle(title);
+        regulationHistory.setAction(action).setCreateTime(LocalDateTime.now()).setUser(user).setRegulationId(regulationId).setTitle(title);
         return regulaitonHistoryRepository.save(regulationHistory);
     }
 }

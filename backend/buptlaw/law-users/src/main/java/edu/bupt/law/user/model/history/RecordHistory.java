@@ -25,5 +25,5 @@ public class RecordHistory {
 
     private String action;
 
-    private LocalDateTime timestamp;
+    private LocalDateTime createTime;
 }
