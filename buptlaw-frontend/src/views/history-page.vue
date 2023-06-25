@@ -14,10 +14,9 @@ const getRecordHistoryList = () => {
   getRecordHistoryByUser(1, 10).then(res => {
     recordHistoryList.value = res.content.map(item => ({
       ...item,
-      formatAction: LAW_ACTION_MAP[item.action],
+      formatAction: LAW_ACTION_MAP[item.action as keyof typeof LAW_ACTION_MAP],
       formatCreateTime: item.createTime ? getFormatTime(item.createTime) : '未知',
     }))
-    console.log(res.content)
   })
 }
 

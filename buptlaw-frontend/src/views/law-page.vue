@@ -21,6 +21,8 @@ const expiryTimeRange  = ref<(number | undefined)[]>([])
 // 切换高级搜索的显示
 const switchLawSearchConfiguration = () => {
   const lawSearchConfiguration = document.getElementById("law-search-configuration")
+  if (!lawSearchConfiguration) return
+
   if (lawSearchConfiguration.style.display === "none" || lawSearchConfiguration.style.display === "") {
     lawSearchConfiguration.style.display = "block"
   } else {
@@ -30,10 +32,10 @@ const switchLawSearchConfiguration = () => {
 
 // 选择法律类型时，如果选择了大类，则去掉修改、废止的决定
 const handleLawClassCheckBoxClick = (data: any) => {
-  if (data.value === '0200') {
+  if (data.value === '0200' && lawSearchBody.value.lawClass) {
     // 去掉修改、废止的决定（0211）
     lawSearchBody.value.lawClass = lawSearchBody.value.lawClass.filter(((item: string) => item !== '0211') as any)
-  } else if (data.value === '0500') {
+  } else if (data.value === '0500' && lawSearchBody.value.lawClass) {
     // 去掉修改、废止的决定（0510）
     lawSearchBody.value.lawClass = lawSearchBody.value.lawClass.filter(((item: string) => item !== '0510') as any)
   }
@@ -43,17 +45,17 @@ const handleLawClassCheckBoxClick = (data: any) => {
 const timeOnChange = (type: string) => {
   if (type === 'publish') {
     if (publishTimeRange.value[0]) {
-      lawSearchBody.value.publishStart = (publishTimeRange.value[0] as Date).getTime()
+      lawSearchBody.value.publishStart = (publishTimeRange.value[0] as unknown as Date).getTime()
     }
     if (publishTimeRange.value[1]) {
-      lawSearchBody.value.publishEnd = (publishTimeRange.value[1] as Date).getTime()
+      lawSearchBody.value.publishEnd = (publishTimeRange.value[1] as unknown as Date).getTime()
     }
   } else if (type === 'expiry') {
     if (expiryTimeRange.value[0]) {
-      lawSearchBody.value.expiryStart = (expiryTimeRange.value[0] as Date).getTime()
+      lawSearchBody.value.expiryStart = (expiryTimeRange.value[0] as unknown as Date).getTime()
     }
     if (expiryTimeRange.value[1]) {
-      lawSearchBody.value.expiryEnd = (expiryTimeRange.value[1] as Date).getTime()
+      lawSearchBody.value.expiryEnd = (expiryTimeRange.value[1] as unknown as Date).getTime()
     }
   }
 }

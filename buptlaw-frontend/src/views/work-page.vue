@@ -20,8 +20,8 @@ const getFormatRecordList = () => {
   getRecordList().then(res => {
     recordList.value = res.content.map(i => ({
       ...i,
-      formatType: RECORD_TYPE_MAP[i.type],
-      formatStatus: RECORD_STATUS_MAP[i.status],
+      formatType: RECORD_TYPE_MAP[i.type as keyof typeof RECORD_TYPE_MAP],
+      formatStatus: RECORD_STATUS_MAP[i.status as keyof typeof RECORD_STATUS_MAP],
       formatUpdateTime: i.updateDateTime ? getFormatTime(i.updateDateTime) : '未知',
     }))
   })

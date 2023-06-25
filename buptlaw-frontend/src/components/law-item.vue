@@ -1,14 +1,8 @@
 <script setup lang="ts">
 import { Law }           from "../types/law";
 import { getFormatDate } from "../utils/utils";
-import { onMounted }     from "vue";
 
 const props = defineProps<{ law: Law }>()
-
-let law: Law
-onMounted(() => {
-  law = props.law
-})
 </script>
 
 <template>

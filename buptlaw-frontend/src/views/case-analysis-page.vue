@@ -33,7 +33,7 @@ onMounted(() => {
         name: '数量'
       },
       series: [{
-        data: res.sort((a, b) => a.caseReason - b.caseReason).map(item => item.num),
+        data: res.sort((a, b) => Number(a.caseReason) - Number(b.caseReason)).map(item => item.num),
         type: 'bar'
       }]
     }
@@ -54,7 +54,7 @@ onMounted(() => {
         name: '数量'
       },
       series: [{
-        data: res.sort((a, b) => a.caseType - b.caseType).map(item => item.num),
+        data: res.sort((a, b) => Number(a.caseType) - Number(b.caseType)).map(item => item.num),
         type: 'bar'
       }]
     }

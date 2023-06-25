@@ -17,6 +17,6 @@ export const RECORD_TYPE_MAP = {
 }
 
 export const RECORD_STATUS_MAP = {
-  '1': '正常',
-  '2': '已删除',
+  1: '正常',
+  2: '已删除',
 }
