@@ -11,6 +11,8 @@
 //--------------------------------------------------------------------------
 
 // 案件的类型
+import { PagingResponse } from "./index";
+
 export interface Case {
   caseId: number;           // 案件id
   userId: number;           // 负责人id
@@ -25,3 +27,5 @@ export interface Case {
   updateTime: number;       // 更新时间
   deleteTime: number;       // 删除时间
 }
+
+export interface CasePagingResponse extends PagingResponse<Case> {}

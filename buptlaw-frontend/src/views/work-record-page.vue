@@ -4,8 +4,6 @@ import { addSingleRecord, deleteSingleRecord, getSingleRecord, updateSingleRecor
 import { Record, RecordRequest }                                                    from "../types/record";
 import { ElNotification }                                                           from "element-plus";
 import { router }                                                                   from "../router/index";
-import { postUserRecordHistory }                                                    from "../services/history";
-import { RecordAction }                                                             from "../consts/action";
 
 const props = defineProps<{
   recordId: number
@@ -29,9 +27,6 @@ const uploadRecord = () => {
       type: record.value.type
     })
 
-    // 添加更新历史
-    postUserRecordHistory(props.recordId, RecordAction.UPDATE)
-
     ElNotification({
       title: '编辑成功',
       message: '记录编辑成功',
@@ -49,9 +44,6 @@ const uploadRecord = () => {
       message: '记录上传成功',
       type: 'success',
     })
-
-    // 添加创建历史
-    postUserRecordHistory(props.recordId, RecordAction.CREATE)
 
     // 返回上一个页面
     router.back()
@@ -72,9 +64,6 @@ const deleteRecord = () => {
       message: '记录删除成功',
       type: 'success',
     })
-
-    // 添加删除历史
-    postUserRecordHistory(props.recordId, RecordAction.DELETE)
 
     // 返回上一个页面
     router.back()

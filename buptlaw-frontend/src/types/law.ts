@@ -10,6 +10,8 @@
 //
 //--------------------------------------------------------------------------
 
+import { PagingResponse } from "./index";
+
 export interface Law {
   expiry: number;         // 失效时间
   publish: number;        // 发布时间
@@ -65,31 +67,4 @@ export interface LawMixedSearchResponse {
   empty: boolean;               // 搜索结果是否为空
 }
 
-export interface LawNormalSearchResponse {
-  content: Law[];
-  pageable: {
-    sort: {
-      empty: boolean;
-      sorted: boolean;
-      unsorted: boolean;
-    }
-    offset: number;
-    pageNumber: number;
-    pageSize: number;
-    paged: boolean;
-    unpaged: boolean;
-  }
-  last: boolean;
-  totalPages: number;
-  totalElements: number;
-  first: boolean;
-  size: number;
-  number: number;
-  sort: {
-    empty: boolean;
-    sorted: boolean;
-    unsorted: boolean;
-  }
-  numberOfElements: number;
-  empty: boolean;
-}
+export interface LawNormalSearchResponse extends PagingResponse<Law> {}

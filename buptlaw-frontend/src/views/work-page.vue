@@ -6,8 +6,6 @@ import { getFormatTime }                      from "../utils/utils";
 import { router }                             from "../router/index";
 import { RECORD_STATUS_MAP, RECORD_TYPE_MAP } from "../consts/record";
 import { ElNotification }                     from "element-plus";
-import { postUserRecordHistory }   from "../services/history";
-import { LawAction, RecordAction } from "../consts/action";
 
 const recordList = ref<(Record & {
   formatType: string,
@@ -29,9 +27,6 @@ const getFormatRecordList = () => {
 
 // 跳转到记录编辑页面
 const toRecordEditPage = (recordId: number) => {
-  // 添加浏览历史
-  postUserRecordHistory(recordId, LawAction.BROWSE)
-
   router.push({name: 'record', params: {recordId: recordId}})
 }
 
@@ -43,9 +38,6 @@ const deleteRecord = (recordId: number) => {
       message: '记录删除成功',
       type: 'success',
     })
-
-    // 添加删除历史
-    postUserRecordHistory(recordId, RecordAction.DELETE)
 
     getFormatRecordList()
   }).catch(() => {

@@ -10,6 +10,8 @@
 //
 //--------------------------------------------------------------------------
 
+import { PagingResponse } from "./index";
+
 export interface History {
   id: number;
   userId: number;
@@ -19,31 +21,4 @@ export interface History {
   createTime: number;
 }
 
-export interface HistoryPagingResponse {
-  content: History[];
-  pageable: {
-    sort: {
-      empty: boolean;
-      sorted: boolean;
-      unsorted: boolean;
-    }
-    offset: number;
-    pageNumber: number;
-    pageSize: number;
-    paged: boolean;
-    unpaged: boolean;
-  }
-  last: boolean;
-  totalPages: number;
-  totalElements: number;
-  first: boolean;
-  size: number;
-  number: number;
-  sort: {
-    empty: boolean;
-    sorted: boolean;
-    unsorted: boolean;
-  }
-  numberOfElements: number;
-  empty: boolean;
-}
+export interface HistoryPagingResponse extends PagingResponse<History> {}

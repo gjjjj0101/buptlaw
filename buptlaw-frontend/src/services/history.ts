@@ -13,14 +13,6 @@ import request                   from '../services/request';
 import { BACKEND_URL }           from "../consts/urls";
 import { HistoryPagingResponse } from "../types/history";
 
-// 上传用户操作记录的历史记录
-export const postUserRecordHistory = (recordId: number, action: string) => {
-  return request.post(BACKEND_URL + '/history/records', {
-    recordId,
-    action
-  })
-}
-
 // 上传用户操作法律法规的历史记录
 export const postLawRecordHistory = (regulationId: string, title: string, action: string) => {
   return request.post(BACKEND_URL + '/history/regulations', {

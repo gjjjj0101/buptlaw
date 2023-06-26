@@ -27,11 +27,3 @@ export enum LawAction {
   BROWSE = '01',
   COLLECT = '02',
 }
-
-// 记录行为枚举
-export enum RecordAction {
-  CREATE = '01',
-  UPDATE = '02',
-  DELETE = '03',
-  RECOVER = '04',
-}
