@@ -17,7 +17,7 @@ const getFavoriteList = () => {
       ...item,
       formatAction: LAW_ACTION_MAP[item.action as keyof typeof LAW_ACTION_MAP],
       formatCreateTime: item.createTime ? getFormatTime(item.createTime) : '未知',
-    }))
+    })).sort((a, b) => b.createTime - a.createTime)
   })
 }
 
@@ -33,7 +33,7 @@ getFavoriteList()
     <div id="favorite-list" class="card">
       <div class="card-title">法律法规收藏列表</div>
       <el-table :data="favoriteList" style="width: 100%; margin-top: 16px">
-        <el-table-column prop="title" label="法律法规标题" width="180"/>
+        <el-table-column prop="title" label="法律法规标题" width="720"/>
         <el-table-column prop="formatAction" label="操作" width="80"/>
         <el-table-column prop="formatCreateTime" label="操作时间" width="180"/>
         <el-table-column fixed="right" label="操作" min-width="180">

@@ -16,7 +16,7 @@ const getRecordHistoryList = () => {
       ...item,
       formatAction: RECORD_ACTION_MAP[item.action as keyof typeof RECORD_ACTION_MAP],
       formatCreateTime: item.createTime ? getFormatTime(item.createTime) : '未知',
-    }))
+    })).sort((a, b) => b.createTime - a.createTime)
   })
 }
 
@@ -28,7 +28,7 @@ getRecordHistoryList()
     <div id="history-list" class="card">
       <div class="card-title">工作记录操作历史</div>
       <el-table :data="recordHistoryList" style="width: 100%; margin-top: 16px">
-        <el-table-column prop="title" label="记录标题" width="180"/>
+        <el-table-column prop="title" label="记录标题" width="720"/>
         <el-table-column prop="formatAction" label="操作" width="80"/>
         <el-table-column prop="formatCreateTime" label="操作时间"/>
       </el-table>
