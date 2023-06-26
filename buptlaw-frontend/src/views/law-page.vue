@@ -1,10 +1,11 @@
 <script setup lang="ts">
-import { onMounted, ref }                        from "vue";
-import { getLawByLawClass, getLawByMixedSearch } from "../services/law";
-import { Law, LawSearchBody }                    from "../types/law";
+import { onMounted, ref }                                             from "vue";
+import { getLawByLawClass, getLawByMixedSearch }                      from "../services/law";
+import { Law, LawSearchBody }                                         from "../types/law";
 import { LAW_CLASS_TREE_SELECT_LIST, OFFICE_CLASS_TREE_SELECT_LIST }  from "../consts/law";
 import { getFormatDate, getFormatLawStatus, getFormatLawStatusColor } from "../utils/utils";
-import LawItem from "../components/law-item.vue";
+import LawItem                                                        from "../components/law-item.vue";
+import { router }                                                     from "../router";
 
 // 搜索查询的参数
 const lawSearchBody = ref<LawSearchBody>({
@@ -71,7 +72,7 @@ const searchResult = ref<(Law & {
 const onSearch = () => {
   getLawByMixedSearch(lawSearchBody.value, 1, 10).then(res => {
     let lawSearchResultBox = document.getElementById("law-search-result-box")
-    if (lawSearchResultBox && lawSearchResultBox.style.display === "none") {
+    if (lawSearchResultBox && (lawSearchResultBox.style.display === "none" || lawSearchResultBox.style.display === "")) {
       lawSearchResultBox.style.display = "block"
     }
 
@@ -83,7 +84,7 @@ const onSearch = () => {
   })
 }
 
-const lawList = ref<Law[][]>([])
+const lawList        = ref<Law[][]>([])
 const lawTabNameList = ref<string[]>(['0100', '0200', '0300', '0400', '0500', '0600'])
 
 // 当切换法律列表的 tab 时，发送请求
@@ -91,6 +92,10 @@ const handleLawListTabClick = (name: string) => {
   getLawByLawClass(name, 1, 4).then(res => {
     lawList.value[Number(name[1]) - 1] = res.content
   })
+}
+
+const toLawDetailPage = (id: string) => {
+  router.push({name: 'law-detail', params: {id: id}})
 }
 
 onMounted(() => {
@@ -192,8 +197,8 @@ onMounted(() => {
     <div id="law-search-result-box" class="card">
       <el-table :data="searchResult" stripe empty-text="没有数据">
         <el-table-column type="index" label="序号" width="70"/>
-        <el-table-column prop="title" label="标题" width="220"/>
-        <el-table-column prop="office" label="制定机关" width="320"/>
+        <el-table-column prop="title" label="标题" width="240"/>
+        <el-table-column prop="office" label="制定机关" width="220"/>
         <el-table-column prop="level" label="法律性质" width="220"/>
         <el-table-column prop="formatStatus" label="时效性">
           <template #default="scope">
@@ -203,13 +208,19 @@ onMounted(() => {
           </template>
         </el-table-column>
         <el-table-column prop="formatPublishTime" label="发布日期" width="180"/>
+        <el-table-column fixed="right" label="操作" min-width="80">
+          <template #default="scope">
+            <el-button plain @click="toLawDetailPage(scope.row.id)">查看</el-button>
+          </template>
+        </el-table-column>
       </el-table>
     </div>
 
     <div id="law-list-box">
       <el-row justify="space-between">
         <el-col :span="11">
-          <el-tabs class="card law-card" type="border-card" v-model="lawTabNameList[0]" @tab-change="handleLawListTabClick">
+          <el-tabs class="card law-card" type="border-card" v-model="lawTabNameList[0]"
+                   @tab-change="handleLawListTabClick">
             <el-tab-pane label="宪法" name="0100">
               <div v-if="lawList[0] && lawList[0].length" v-for="i in lawList[0]">
                 <law-item :law="i"/>
@@ -220,7 +231,8 @@ onMounted(() => {
             </el-tab-pane>
           </el-tabs>
 
-          <el-tabs class="card law-card" type="border-card" v-model="lawTabNameList[2]" @tab-change="handleLawListTabClick">
+          <el-tabs class="card law-card" type="border-card" v-model="lawTabNameList[2]"
+                   @tab-change="handleLawListTabClick">
             <el-tab-pane label="行政法规" name="0300">
               <div v-if="lawList[2] && lawList[2].length" v-for="i in lawList[2]">
                 <law-item :law="i"/>
@@ -231,7 +243,8 @@ onMounted(() => {
             </el-tab-pane>
           </el-tabs>
 
-          <el-tabs class="card law-card" type="border-card" v-model="lawTabNameList[4]" @tab-change="handleLawListTabClick">
+          <el-tabs class="card law-card" type="border-card" v-model="lawTabNameList[4]"
+                   @tab-change="handleLawListTabClick">
             <el-tab-pane label="地方性法规" name="0500">
               <div v-if="lawList[4] && lawList[4].length" v-for="i in lawList[4]">
                 <law-item :law="i"/>
@@ -244,7 +257,8 @@ onMounted(() => {
         </el-col>
 
         <el-col :span="11">
-          <el-tabs class="card law-card" type="border-card" v-model="lawTabNameList[1]" @tab-change="handleLawListTabClick">
+          <el-tabs class="card law-card" type="border-card" v-model="lawTabNameList[1]"
+                   @tab-change="handleLawListTabClick">
             <el-tab-pane label="法律" name="0200">
               <div v-if="lawList[1] && lawList[1].length" v-for="i in lawList[1]">
                 <law-item :law="i"/>
@@ -255,7 +269,8 @@ onMounted(() => {
             </el-tab-pane>
           </el-tabs>
 
-          <el-tabs class="card law-card" type="border-card" v-model="lawTabNameList[3]" @tab-change="handleLawListTabClick">
+          <el-tabs class="card law-card" type="border-card" v-model="lawTabNameList[3]"
+                   @tab-change="handleLawListTabClick">
             <el-tab-pane label="监察法规" name="0400">
               <div v-if="lawList[3] && lawList[3].length" v-for="i in lawList[3]">
                 <law-item :law="i"/>
@@ -266,7 +281,8 @@ onMounted(() => {
             </el-tab-pane>
           </el-tabs>
 
-          <el-tabs class="card law-card" type="border-card" v-model="lawTabNameList[5]" @tab-change="handleLawListTabClick">
+          <el-tabs class="card law-card" type="border-card" v-model="lawTabNameList[5]"
+                   @tab-change="handleLawListTabClick">
             <el-tab-pane label="司法解释" name="0600">
               <div v-if="lawList[5] && lawList[5].length" v-for="i in lawList[5]">
                 <law-item :law="i"/>
