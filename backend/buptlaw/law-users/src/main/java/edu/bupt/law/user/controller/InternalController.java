@@ -54,7 +54,7 @@ public class InternalController {
     public ResponseEntity<?> getCases(@RequestParam(defaultValue = "1") int page,
                                       @RequestParam(defaultValue = "10") int size){
         CaseDto caseDto = new CaseDto();
-        caseDto.setCaseId(1L).setUserId(1L).setCaseType("010000").setCaseReason("0100")
+        caseDto.setCaseId(1L).setUserId(1L).setCaseType("0100").setCaseReason("010000")
                 .setCaseStatus("0").setCaseName("生态环境损害赔偿诉讼案").setCaseDescription("生态环境损害赔偿诉讼案").setCaseContent("生态环境损害赔偿诉讼案")
                 .setOpenTime(LocalDateTime.now()).setCreateTime(LocalDateTime.now());
         List<CaseDto> caseDtos = new ArrayList<>();
