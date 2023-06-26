@@ -1,11 +1,17 @@
 <script setup>
+import {router} from "../router/index";
 
+const toToolsPage = () => {
+  router.push({name: 'tools'})
+}
 </script>
 
 <template>
   <div id="navigator-bar">
-    <font-awesome-icon icon="gavel" id="navigator-bar-logo"/>
-    <span id="navigator-bar-text">某某律所</span>
+    <div id="navigator-bar-logo-box" @click="toToolsPage">
+      <font-awesome-icon icon="gavel" id="navigator-bar-logo"/>
+      <span id="navigator-bar-text">某某律所</span>
+    </div>
   </div>
 </template>
 
@@ -24,6 +30,10 @@ export default {
 
   padding: 0 0 0 240px;
   border-bottom: 1px solid rgb(220, 223, 230);
+}
+
+#navigator-bar-logo-box {
+  cursor: pointer;
 }
 
 #navigator-bar-logo {

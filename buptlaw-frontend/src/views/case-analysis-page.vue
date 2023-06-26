@@ -10,7 +10,7 @@ const caseList = ref<(Case & {
 })[]>([])
 
 getCaseList(1, 10).then(res => {
-  caseList.value = res.map(item => {
+  caseList.value = res.content.map(item => {
     return {
       ...item,
       formatOpenTime: getFormatTime(item.openTime)
