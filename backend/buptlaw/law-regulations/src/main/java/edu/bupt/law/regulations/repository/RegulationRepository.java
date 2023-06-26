@@ -21,6 +21,8 @@ public interface RegulationRepository extends ElasticsearchRepository<Regulation
 
     Page<Regulation> findByOffice(String office, Pageable page);
 
+    Page<Regulation> findByLawClass1(String lawClass1, Pageable page);
+
     Set<Regulation> findByLevel(String level);
 
     Set<Regulation> findByOffice(String office);

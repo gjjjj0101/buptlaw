@@ -52,6 +52,11 @@ public class RegulationServiceImpl implements RegulationService {
     }
 
     @Override
+    public Page<Regulation> findByLawClass1(String lawClass1, Pageable pageable) {
+        return regulationRepository.findByLawClass1(lawClass1, pageable);
+    }
+
+    @Override
     public Page<Regulation> findByOffice(String office, Pageable pageable) {
         Page<Regulation> regulations = regulationRepository.findByOffice(office, pageable);
         return regulations;

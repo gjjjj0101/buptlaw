@@ -26,10 +26,10 @@ public class RegulationController {
     }
 
     @GetMapping("/level")
-    public ResponseEntity<?> getRegulationByLevel(@RequestParam String level,
+    public ResponseEntity<?> getRegulationByLevel(@RequestParam String lawClass,
                                                   @RequestParam(defaultValue = "1") int page,
                                                   @RequestParam(defaultValue = "10") int size){
-        return ResponseEntity.ok(regulationService.findByLevel(level, PageRequest.of(page - 1, size)));
+        return ResponseEntity.ok(regulationService.findByLawClass1(lawClass, PageRequest.of(page - 1, size)));
     }
 
 

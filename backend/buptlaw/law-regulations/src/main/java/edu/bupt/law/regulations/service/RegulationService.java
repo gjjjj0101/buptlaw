@@ -15,6 +15,8 @@ public interface RegulationService {
 
     Page<Regulation> findByLevel(String level, Pageable pageable);
 
+    Page<Regulation> findByLawClass1(String lawClass1, Pageable pageable);
+
     Page<Regulation> findByOffice(String office, Pageable pageable);
 
     Set<Regulation> findByOffice(String office);
