@@ -21,10 +21,11 @@ export const getLawByMixedSearch = (key?: LawSearchBody, page?: number, size?: n
     , key)
 }
 
+// TODO: 将'/regulation/level'替换
 // 根据法规类型获取法规
-export const getLawByLevel = (level: string, page?: number, size?: number) => {
+export const getLawByLawClass = (lawClass: string, page?: number, size?: number) => {
   return request.get<LawNormalSearchResponse>(LAW_BACKEND_URL + '/regulation/level'
-    + `?level=${level}`
+    + `?lawClass=${lawClass}`
     + (page !== undefined ? `&page=${page}` : '')
     + (size !== undefined ? `&size=${size}` : ''))
 }

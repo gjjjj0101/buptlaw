@@ -13,5 +13,5 @@
 // export const BACKEND_URL = "http://127.0.0.1:4523/m1/2826362-0-default";
 // export const LAW_BACKEND_URL = "http://127.0.0.1:4523/m1/2826362-0-3de1c54b";
 
-export const BACKEND_URL = "http://localhost:8080"
-export const LAW_BACKEND_URL = "http://localhost:8081"
+export const BACKEND_URL = "http://123.57.33.127:8080"
+export const LAW_BACKEND_URL = "http://123.57.33.127:8081"

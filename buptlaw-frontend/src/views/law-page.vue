@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { onMounted, ref }                                             from "vue";
-import { getLawByLevel, getLawByMixedSearch }                         from "../services/law";
-import { Law, LawSearchBody }                                         from "../types/law";
+import { onMounted, ref }                        from "vue";
+import { getLawByLawClass, getLawByMixedSearch } from "../services/law";
+import { Law, LawSearchBody }                    from "../types/law";
 import { LAW_CLASS_TREE_SELECT_LIST, OFFICE_CLASS_TREE_SELECT_LIST }  from "../consts/law";
 import { getFormatDate, getFormatLawStatus, getFormatLawStatusColor } from "../utils/utils";
 import LawItem from "../components/law-item.vue";
@@ -88,14 +88,14 @@ const lawTabNameList = ref<string[]>(['0100', '0200', '0300', '0400', '0500', '0
 
 // 当切换法律列表的 tab 时，发送请求
 const handleLawListTabClick = (name: string) => {
-  getLawByLevel(name, 1, 4).then(res => {
+  getLawByLawClass(name, 1, 4).then(res => {
     lawList.value[Number(name[1]) - 1] = res.content
   })
 }
 
 onMounted(() => {
   for (let i = 1; i <= 6; i++) {
-    getLawByLevel(`0${i}00`, 1, 4).then(res => {
+    getLawByLawClass(`0${i}00`, 1, 4).then(res => {
       lawList.value[i - 1] = res.content
     })
   }
@@ -240,44 +240,12 @@ onMounted(() => {
                 <el-empty description="没有数据" :image-size="100"/>
               </div>
             </el-tab-pane>
-            <el-tab-pane label="修改、废止的决定" name="0510">
-              <div v-if="lawList[4] && lawList[4].length" v-for="i in lawList[4]">
-                <law-item :law="i"/>
-              </div>
-              <div v-else>
-                <el-empty description="没有数据" :image-size="100"/>
-              </div>
-            </el-tab-pane>
           </el-tabs>
         </el-col>
 
         <el-col :span="11">
           <el-tabs class="card law-card" type="border-card" v-model="lawTabNameList[1]" @tab-change="handleLawListTabClick">
             <el-tab-pane label="法律" name="0200">
-              <div v-if="lawList[1] && lawList[1].length" v-for="i in lawList[1]">
-                <law-item :law="i"/>
-              </div>
-              <div v-else>
-                <el-empty description="没有数据" :image-size="100"/>
-              </div>
-            </el-tab-pane>
-            <el-tab-pane label="法律解释" name="0209">
-              <div v-if="lawList[1] && lawList[1].length" v-for="i in lawList[1]">
-                <law-item :law="i"/>
-              </div>
-              <div v-else>
-                <el-empty description="没有数据" :image-size="100"/>
-              </div>
-            </el-tab-pane>
-            <el-tab-pane label="有关法律问题和重大问题的决定（部分）" name="0210">
-              <div v-if="lawList[1] && lawList[1].length" v-for="i in lawList[1]">
-                <law-item :law="i"/>
-              </div>
-              <div v-else>
-                <el-empty description="没有数据" :image-size="100"/>
-              </div>
-            </el-tab-pane>
-            <el-tab-pane label="修改、废止的决定" name="0211">
               <div v-if="lawList[1] && lawList[1].length" v-for="i in lawList[1]">
                 <law-item :law="i"/>
               </div>
@@ -300,38 +268,6 @@ onMounted(() => {
 
           <el-tabs class="card law-card" type="border-card" v-model="lawTabNameList[5]" @tab-change="handleLawListTabClick">
             <el-tab-pane label="司法解释" name="0600">
-              <div v-if="lawList[5] && lawList[5].length" v-for="i in lawList[5]">
-                <law-item :law="i"/>
-              </div>
-              <div v-else>
-                <el-empty description="没有数据" :image-size="100"/>
-              </div>
-            </el-tab-pane>
-            <el-tab-pane label="高检司法解释" name="0601">
-              <div v-if="lawList[5] && lawList[5].length" v-for="i in lawList[5]">
-                <law-item :law="i"/>
-              </div>
-              <div v-else>
-                <el-empty description="没有数据" :image-size="100"/>
-              </div>
-            </el-tab-pane>
-            <el-tab-pane label="高法司法解释" name="0602">
-              <div v-if="lawList[5] && lawList[5].length" v-for="i in lawList[5]">
-                <law-item :law="i"/>
-              </div>
-              <div v-else>
-                <el-empty description="没有数据" :image-size="100"/>
-              </div>
-            </el-tab-pane>
-            <el-tab-pane label="联合发布司法解释" name="0603">
-              <div v-if="lawList[5] && lawList[5].length" v-for="i in lawList[5]">
-                <law-item :law="i"/>
-              </div>
-              <div v-else>
-                <el-empty description="没有数据" :image-size="100"/>
-              </div>
-            </el-tab-pane>
-            <el-tab-pane label="修改、废止的决定" name="0604">
               <div v-if="lawList[5] && lawList[5].length" v-for="i in lawList[5]">
                 <law-item :law="i"/>
               </div>

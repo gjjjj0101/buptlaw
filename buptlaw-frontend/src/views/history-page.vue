@@ -2,8 +2,8 @@
 import { History }                from "../types/history";
 import { ref }                    from "vue";
 import { getRecordHistoryByUser } from "../services/history";
-import { getFormatTime }          from "../utils/utils";
-import { LAW_ACTION_MAP }         from "../consts/action";
+import { getFormatTime }                     from "../utils/utils";
+import { RECORD_ACTION_MAP } from "../consts/action";
 
 const recordHistoryList = ref<(History & {
   formatAction: string,
@@ -14,7 +14,7 @@ const getRecordHistoryList = () => {
   getRecordHistoryByUser(1, 10).then(res => {
     recordHistoryList.value = res.content.map(item => ({
       ...item,
-      formatAction: LAW_ACTION_MAP[item.action as keyof typeof LAW_ACTION_MAP],
+      formatAction: RECORD_ACTION_MAP[item.action as keyof typeof RECORD_ACTION_MAP],
       formatCreateTime: item.createTime ? getFormatTime(item.createTime) : '未知',
     }))
   })
