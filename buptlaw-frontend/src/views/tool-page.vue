@@ -90,7 +90,7 @@ const workToolItems: ToolItem[] = [
 
 <template>
   <div id="tools-main">
-    <div class="card" style="width: 420px; ">
+    <div class="card" style="width: 420px; margin: 0 24px 48px">
       <div class="card-title">法律法规相关</div>
 
       <el-row class="tools-box">
@@ -107,7 +107,7 @@ const workToolItems: ToolItem[] = [
       </el-row>
     </div>
 
-    <div class="card" style="width: 420px; margin-left: 48px">
+    <div class="card" style="width: 420px; margin: 0 24px 48px">
       <div class="card-title">案件相关</div>
 
       <el-row class="tools-box">
@@ -124,7 +124,7 @@ const workToolItems: ToolItem[] = [
       </el-row>
     </div>
 
-    <div class="card" style="width: 420px; margin-left: 48px">
+    <div class="card" style="width: 420px; margin: 0 24px 48px">
       <div class="card-title">工作相关</div>
 
       <el-row class="tools-box">
