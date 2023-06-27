@@ -31,7 +31,8 @@ export default {
 <style scoped>
 .law-item {
   width: 100%;
-  height: 42px;
+  height: 48px;
+  min-height: 48px;
   display: flex;
   align-items: center;
   border-bottom: 1px dashed var(--theme-color);

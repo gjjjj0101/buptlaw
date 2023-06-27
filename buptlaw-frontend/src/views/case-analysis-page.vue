@@ -158,6 +158,7 @@ export default {
 #case-analysis {
   width: 100%;
   padding-bottom: 120px;
+  min-width: 1600px;
 }
 
 #case-analysis-list-box {

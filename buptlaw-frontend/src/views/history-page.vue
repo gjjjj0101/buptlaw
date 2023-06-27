@@ -46,6 +46,7 @@ export default {
 <style scoped>
 #history {
   padding: 0 240px;
+  min-width: 1200px;
 }
 
 #history-list {

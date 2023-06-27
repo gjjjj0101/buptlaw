@@ -155,6 +155,7 @@ export default {
   display: flex;
   align-items: flex-start;
   flex-wrap: wrap;
+  min-width: 1200px;
 }
 
 .tools-box {

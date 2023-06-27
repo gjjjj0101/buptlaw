@@ -56,6 +56,7 @@ export default {
 <style scoped>
 #favorite {
   padding: 0 240px;
+  min-width: 1200px;
 }
 
 #favorite-list {

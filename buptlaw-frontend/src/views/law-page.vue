@@ -306,7 +306,8 @@ export default {
 
 <style scoped>
 #law {
-  padding: 0 360px 120px;
+  padding: 0 320px 120px;
+  min-width: 1200px;
 }
 
 #law-search-box {

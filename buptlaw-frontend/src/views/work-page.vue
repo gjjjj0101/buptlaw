@@ -89,5 +89,6 @@ export default {
 <style scoped>
 #work {
   padding: 0 240px 64px;
+  min-width: 1200px;
 }
 </style>

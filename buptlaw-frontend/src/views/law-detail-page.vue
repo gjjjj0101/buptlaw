@@ -79,6 +79,7 @@ export default {
   flex-direction: column;
   align-items: center;
   padding-bottom: 64px;
+  min-width: 1200px;
 }
 
 #law-detail p {
