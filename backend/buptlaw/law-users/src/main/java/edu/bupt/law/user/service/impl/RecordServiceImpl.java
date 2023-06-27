@@ -72,4 +72,5 @@ public class RecordServiceImpl implements RecordService {
         historyService.addRecordHistory(record.getUser().getUsername(), record.getId(), "03");
         return true;
     }
+
 }

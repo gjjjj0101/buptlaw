@@ -65,4 +65,9 @@ public class HistoryController {
         Page<RegulationHistory> regulationHistories = historyService.getRegulationsHistoryByPageAndAction(authentication.getName(), action, PageRequest.of(page - 1, size));
         return ResponseEntity.ok(regulationHistories);
     }
+
+    @DeleteMapping("/regulaiton")
+    public ResponseEntity<?> addRecord(Authentication authentication, @RequestParam Long id){
+        return  ResponseEntity.ok(historyService.deleteRegulationHistory(authentication.getName(), id));
+    }
 }

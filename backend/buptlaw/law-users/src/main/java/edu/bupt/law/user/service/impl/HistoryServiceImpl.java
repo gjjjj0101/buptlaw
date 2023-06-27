@@ -74,4 +74,10 @@ public class HistoryServiceImpl implements HistoryService {
         regulationHistory.setAction(action).setCreateTime(LocalDateTime.now()).setUser(user).setRegulationId(regulationId).setTitle(title);
         return regulaitonHistoryRepository.save(regulationHistory);
     }
+
+    @Override
+    public Boolean deleteRegulationHistory(String username, Long id){
+        recordHistoryRepository.deleteById(id);
+        return true;
+    }
 }
