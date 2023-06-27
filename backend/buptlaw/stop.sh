@@ -1,6 +1,8 @@
 #!/bin/bash
 
-# kill java processes
-
-dir
-ps -ef | grep java | grep -v grep | awk '{print $2}' | xargs kill -9
+# kill java jar processes
+pids="$(ps -ef | grep "java -jar" | grep -v grep | awk '{print $2}')"
+if [ -n "$pids" ]; then
+    echo "killing java jar processes: ${pids}"
+    kill -9 ${pids}
+fi
