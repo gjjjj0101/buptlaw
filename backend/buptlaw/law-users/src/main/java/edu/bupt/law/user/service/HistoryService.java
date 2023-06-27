@@ -21,4 +21,6 @@ public interface HistoryService {
     RegulationHistory addRegulationHistory(String username, String regulationId, String title, String action);
 
     Boolean deleteRegulationHistory(String username, Long id);
+
+    Boolean isRegulationFavorite(String username, String regulationId);
 }
