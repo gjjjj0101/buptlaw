@@ -25,3 +25,8 @@ export const logout = () => {
   localStorage.removeItem('token');
   localStorage.removeItem('username');
 }
+
+// 用户注册
+export const userRegister = async (body: UserLoginBody) => {
+  return request.post<UserLoginResponse>(BACKEND_URL + '/auth/register', body);
+}
