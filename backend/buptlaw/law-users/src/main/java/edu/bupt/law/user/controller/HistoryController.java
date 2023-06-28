@@ -75,4 +75,9 @@ public class HistoryController {
     public ResponseEntity<?> deleteRegulationFavorHistory(Authentication authentication, @RequestParam Long id){
         return  ResponseEntity.ok(historyService.deleteRegulationHistory(authentication.getName(), id));
     }
+
+    @DeleteMapping("/regulation/regulationid")
+    public ResponseEntity<?> deleteRegulationFavorHistory(Authentication authentication, @RequestParam String id){
+        return  ResponseEntity.ok(historyService.deleteRegulationHistoryByRegulationId(authentication.getName(), id));
+    }
 }

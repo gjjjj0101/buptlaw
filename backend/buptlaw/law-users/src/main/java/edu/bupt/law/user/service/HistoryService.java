@@ -23,4 +23,6 @@ public interface HistoryService {
     Boolean deleteRegulationHistory(String username, Long id);
 
     Boolean isRegulationFavorite(String username, String regulationId);
+
+    Boolean deleteRegulationHistoryByRegulationId(String username, String regulationId);
 }

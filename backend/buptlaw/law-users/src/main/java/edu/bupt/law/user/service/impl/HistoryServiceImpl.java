@@ -94,4 +94,15 @@ public class HistoryServiceImpl implements HistoryService {
         }
         return true;
     }
+
+    @Override
+    public Boolean deleteRegulationHistoryByRegulationId(String username, String regulationId){
+        User user = userRepository.findByUsername(username);
+        RegulationHistory regulationHistory = regulaitonHistoryRepository.findRegulationHistoryByUserAndRegulationIdAndAction(user, regulationId, "02");
+        if (regulationHistory == null) {
+            return false;
+        }
+        regulaitonHistoryRepository.deleteRegulationHistoryByRegulationIdAndUserAndAction(regulationId, user, "02");
+        return true;
+    }
 }
