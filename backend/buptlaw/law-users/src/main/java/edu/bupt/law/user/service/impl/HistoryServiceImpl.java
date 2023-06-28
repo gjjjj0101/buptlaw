@@ -81,7 +81,7 @@ public class HistoryServiceImpl implements HistoryService {
         if (regulationHistory == null && !regulationHistory.getUser().getUsername().equals(username)) {
             return false;
         }
-        recordHistoryRepository.deleteById(id);
+        regulaitonHistoryRepository.deleteById(id);
         return true;
     }
 
