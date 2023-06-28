@@ -102,7 +102,7 @@ public class HistoryServiceImpl implements HistoryService {
         if (regulationHistory == null) {
             return false;
         }
-        regulaitonHistoryRepository.deleteRegulationHistoryByRegulationIdAndUserAndAction(regulationId, user, "02");
+        regulaitonHistoryRepository.delete(regulationHistory);
         return true;
     }
 }
