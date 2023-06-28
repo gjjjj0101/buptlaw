@@ -122,6 +122,11 @@ public class RegulationServiceImpl implements RegulationService {
             rangeQueryList.add(range);
         }
 
+        if (mixedQuery.getStatus() != null && !mixedQuery.getStatus().isEmpty()){
+            QueryBuilder filter = QueryBuilders.termsQuery("status", mixedQuery.getStatus().toArray(new String[0]));
+            filterQueryList.add(filter);
+        }
+
         if (mixedQuery.getLawClass() != null){
             ArrayList<String> class1 = new ArrayList<>();
             ArrayList<String> class2 = new ArrayList<>();
