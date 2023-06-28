@@ -1,10 +1,11 @@
 <script setup lang="ts">
-import { History }               from "../types/history";
-import { ref }                   from "vue";
-import { getLawHistoryByAction } from "../services/history";
-import { LAW_ACTION_MAP }        from "../consts/action";
-import { getFormatTime }         from "../utils/utils";
-import { router }                from "../router/index";
+import { History }                                      from "../types/history";
+import { ref }                                      from "vue";
+import { deleteHistoryById, getLawHistoryByAction } from "../services/history";
+import { LAW_ACTION_MAP }                           from "../consts/action";
+import { getFormatTime }                                from "../utils/utils";
+import { router }                                       from "../router/index";
+import { ElNotification }                               from "element-plus";
 
 const favoriteList = ref<(History & {
   formatAction: string,
@@ -21,8 +22,24 @@ const getFavoriteList = () => {
   })
 }
 
-const toLawDetailPage = (regulationId: number) => {
+const toLawDetailPage = (regulationId: string) => {
   router.push({name: 'law-detail', params: {id: regulationId}})
+}
+
+const cancelFavorite = (id: number) => {
+  deleteHistoryById(id).then(() => {
+    ElNotification({
+      title: '取消收藏成功',
+      type: 'success',
+    })
+
+    getFavoriteList()
+  }).catch(() => {
+    ElNotification({
+      title: '取消收藏失败',
+      type: 'error',
+    })
+  })
 }
 
 getFavoriteList()
@@ -39,6 +56,12 @@ getFavoriteList()
         <el-table-column fixed="right" label="操作" min-width="180">
           <template #default="scope">
             <el-button type="primary" plain @click="toLawDetailPage(scope.row.regulationId)">查看</el-button>
+
+            <el-popconfirm title="确定取消收藏？" @confirm="cancelFavorite(scope.row.id)">
+              <template #reference>
+                <el-button type="danger" style="">删除</el-button>
+              </template>
+            </el-popconfirm>
           </template>
         </el-table-column>
       </el-table>

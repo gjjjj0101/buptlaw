@@ -2,9 +2,9 @@
 import { Law }                                                        from "../types/law";
 import { ref }                                                        from "vue";
 import { getLawById }                                                 from "../services/law";
-import { getFormatLawStatus, getFormatLawStatusColor, getFormatDate } from "../utils/utils";
-import { postLawRecordHistory }                                       from "../services/history";
-import { ElNotification }                                             from "element-plus";
+import { getFormatLawStatus, getFormatLawStatusColor, getFormatDate }                 from "../utils/utils";
+import { deleteFavoriteById, deleteHistoryById, lawIsFavorite, postLawRecordHistory } from "../services/history";
+import { ElNotification }                                                             from "element-plus";
 import { LawAction }                                                  from "../consts/action";
 
 const props = defineProps<{ id: string }>()
@@ -24,9 +24,15 @@ const law   = ref<Law>({
   office_class_1: '',
   office_class_2: '',
 })
+const isFavorite = ref(false)
 
 getLawById(props.id).then(res => {
   law.value = res
+
+  lawIsFavorite(props.id).then(res => {
+    console.log(res)
+    isFavorite.value = res
+  })
 })
 
 // 收藏法律法规
@@ -35,6 +41,29 @@ const favoriteLaw = () => {
     ElNotification({
       title: '收藏成功',
       type: 'success',
+    })
+
+    isFavorite.value = true
+  }).catch(() => {
+    ElNotification({
+      title: '收藏失败',
+      type: 'error',
+    })
+  })
+}
+
+const cancelFavoriteLaw = () => {
+  deleteFavoriteById(props.id).then(() => {
+    ElNotification({
+      title: '取消收藏成功',
+      type: 'success',
+    })
+
+    isFavorite.value = false
+  }).catch(() => {
+    ElNotification({
+      title: '取消收藏失败',
+      type: 'error',
     })
   })
 }
@@ -55,7 +84,8 @@ const favoriteLaw = () => {
         </el-descriptions-item>
       </el-descriptions>
 
-      <el-button type="primary" style="margin-top: 24px" plain @click="favoriteLaw">添加至收藏</el-button>
+      <el-button v-if="!isFavorite" type="primary" style="margin-top: 24px" plain @click="favoriteLaw">添加至收藏</el-button>
+      <el-button v-if="isFavorite" type="danger" style="margin-top: 24px" plain @click="cancelFavoriteLaw">取消收藏</el-button>
     </div>
 
     <div id="law-detail-content-box" class="card">
