@@ -11,4 +11,8 @@ public interface RegulaitonHistoryRepository extends JpaRepository<RegulationHis
     Page<RegulationHistory> findRegulationHistoriesByUser(User user, Pageable pageable);
 
     Page<RegulationHistory> findRegulationHistoriesByUserAndAction(User user, String action, Pageable pageable);
+
+    RegulationHistory findRegulationHistoryByUserAndRegulationIdAndAction(User user, String regulationId, String action);
+
+    void deleteRegulationHistoryByRegulationIdAndUserAndAction(String regulationId, User user, String action);
 }

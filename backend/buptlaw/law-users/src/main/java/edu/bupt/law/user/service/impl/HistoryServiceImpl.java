@@ -74,4 +74,35 @@ public class HistoryServiceImpl implements HistoryService {
         regulationHistory.setAction(action).setCreateTime(LocalDateTime.now()).setUser(user).setRegulationId(regulationId).setTitle(title);
         return regulaitonHistoryRepository.save(regulationHistory);
     }
+
+    @Override
+    public Boolean deleteRegulationHistory(String username, Long id){
+        RegulationHistory regulationHistory = regulaitonHistoryRepository.findById(id).orElse(null);
+        if (regulationHistory == null && !regulationHistory.getUser().getUsername().equals(username)) {
+            return false;
+        }
+        regulaitonHistoryRepository.deleteById(id);
+        return true;
+    }
+
+    @Override
+    public Boolean isRegulationFavorite(String username, String regulationId) {
+        User user = userRepository.findByUsername(username);
+        RegulationHistory regulationHistory = regulaitonHistoryRepository.findRegulationHistoryByUserAndRegulationIdAndAction(user, regulationId, "02");
+        if (regulationHistory == null) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public Boolean deleteRegulationHistoryByRegulationId(String username, String regulationId){
+        User user = userRepository.findByUsername(username);
+        RegulationHistory regulationHistory = regulaitonHistoryRepository.findRegulationHistoryByUserAndRegulationIdAndAction(user, regulationId, "02");
+        if (regulationHistory == null) {
+            return false;
+        }
+        regulaitonHistoryRepository.delete(regulationHistory);
+        return true;
+    }
 }

@@ -19,4 +19,10 @@ public interface HistoryService {
     RecordHistory addRecordHistory(String username, Long recordId, String action);
 
     RegulationHistory addRegulationHistory(String username, String regulationId, String title, String action);
+
+    Boolean deleteRegulationHistory(String username, Long id);
+
+    Boolean isRegulationFavorite(String username, String regulationId);
+
+    Boolean deleteRegulationHistoryByRegulationId(String username, String regulationId);
 }

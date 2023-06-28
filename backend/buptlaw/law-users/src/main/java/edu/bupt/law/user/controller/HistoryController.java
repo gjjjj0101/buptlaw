@@ -65,4 +65,19 @@ public class HistoryController {
         Page<RegulationHistory> regulationHistories = historyService.getRegulationsHistoryByPageAndAction(authentication.getName(), action, PageRequest.of(page - 1, size));
         return ResponseEntity.ok(regulationHistories);
     }
+
+    @GetMapping("/regulation/isfavor")
+    public ResponseEntity<?> isRegulationFavor(Authentication authentication, @RequestParam String id){
+        return ResponseEntity.ok(historyService.isRegulationFavorite(authentication.getName(), id));
+    }
+
+    @DeleteMapping("/regulation")
+    public ResponseEntity<?> deleteRegulationFavorHistory(Authentication authentication, @RequestParam Long id){
+        return  ResponseEntity.ok(historyService.deleteRegulationHistory(authentication.getName(), id));
+    }
+
+    @DeleteMapping("/regulation/regulationid")
+    public ResponseEntity<?> deleteRegulationFavorHistory(Authentication authentication, @RequestParam String id){
+        return  ResponseEntity.ok(historyService.deleteRegulationHistoryByRegulationId(authentication.getName(), id));
+    }
 }
