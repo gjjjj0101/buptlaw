@@ -80,7 +80,7 @@ public class RegulationServiceImpl implements RegulationService {
         ArrayList<QueryBuilder> filterQueryList = new ArrayList<>();
         ArrayList<QueryBuilder> rangeQueryList = new ArrayList<>();
 
-        if(mixedQuery.getContent() != null) {
+        if(mixedQuery.getContent() != null && !mixedQuery.getContent().equals("")) {
             if(mixedQuery.getIsExactly()){
                 if (mixedQuery.getTitle() != null && mixedQuery.getTitle()){
                     QueryBuilder search = QueryBuilders.wildcardQuery("title", "*" + mixedQuery.getContent() + "*");
